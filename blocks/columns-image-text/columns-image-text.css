@@ -1,0 +1,199 @@
+.columns-image-text {
+  --columns-image-text-max-width: 1128px;
+  --columns-image-text-gap: var(--spacing-l);
+  --columns-image-text-image-height: 320px;
+  --columns-image-text-radius: 30px;
+  --columns-image-text-heading-line-height: 34px;
+  --columns-image-text-list-size: var(--body-font-size-l);
+  --columns-image-text-list-line-height: 26px;
+  --columns-image-text-rule-width: 8px;
+  --columns-image-text-rule: linear-gradient(181deg, var(--avanade-magenta) 12.37%, var(--avanade-orange) 89.13%);
+  --columns-image-text-cta-icon-size: 24px;
+
+  display: grid;
+  gap: var(--spacing-xxl);
+  max-width: min(var(--grid-container-width), var(--columns-image-text-max-width));
+  margin-inline: auto;
+
+  .columns-image-text-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--columns-image-text-gap);
+  }
+
+  .image-end .columns-image-text-image {
+    order: -1;
+  }
+
+  .columns-image-text-image {
+    picture {
+      display: block;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: var(--columns-image-text-image-height);
+      object-fit: cover;
+      border-radius: var(--columns-image-text-radius);
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .columns-image-text-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--spacing-l);
+    min-width: 0;
+
+    > * {
+      margin-block: 0;
+    }
+  }
+
+  .columns-image-text-text h2 {
+    margin-bottom: -10px;
+    padding-bottom: 10px;
+    line-height: var(--columns-image-text-heading-line-height);
+    background-image: var(--gradient-brand);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  ul {
+    margin-block: 0;
+    padding-inline-start: var(--spacing-l);
+    list-style: none;
+    font-size: var(--columns-image-text-list-size);
+    line-height: var(--columns-image-text-list-line-height);
+  }
+
+  li {
+    position: relative;
+    margin-block: 0;
+
+    & + li {
+      margin-top: var(--spacing-l);
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset-block: 0;
+      left: calc(-1 * var(--spacing-l));
+      width: var(--columns-image-text-rule-width);
+      background-image: var(--columns-image-text-rule);
+    }
+
+    a {
+      color: var(--color-link);
+      font-weight: var(--link-cta-font-weight);
+    }
+  }
+
+  p > a:only-child:not(.btn) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-s);
+    color: var(--color-link);
+    font-size: var(--body-font-size-m);
+    font-weight: var(--link-cta-font-weight);
+    text-decoration: none;
+
+    &::after {
+      content: "";
+      flex: none;
+      width: var(--columns-image-text-cta-icon-size);
+      height: var(--columns-image-text-cta-icon-size);
+      background-color: currentcolor;
+      mask: var(--icon-arrow-right) center / contain no-repeat;
+    }
+
+    &:hover {
+      background-image: var(--gradient-brand);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      &::after {
+        background-image: var(--gradient-brand);
+      }
+    }
+  }
+}
+
+/* careers banner: white text on the gradient; centered, text-first stack on mobile */
+.pink-gradient .columns-image-text {
+  .columns-image-text-text h2 {
+    background-image: none;
+    -webkit-text-fill-color: currentcolor;
+  }
+
+  .image-end .columns-image-text-image {
+    order: 0;
+  }
+
+  .columns-image-text-text {
+    text-align: center;
+
+    > :not(:has(.btn)) {
+      padding-inline: 16px;
+    }
+  }
+
+  a.btn {
+    display: block;
+  }
+}
+
+@media (width >= 900px) {
+  .columns-image-text {
+    --columns-image-text-gap: 120px;
+    --columns-image-text-image-width: 456px;
+    --columns-image-text-image-height: 800px;
+    --columns-image-text-heading-line-height: 62px;
+
+    .columns-image-text-row {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .columns-image-text-image {
+      flex: 0 0 var(--columns-image-text-image-width);
+    }
+
+    .image-end .columns-image-text-image {
+      order: 0;
+    }
+  }
+
+  .light-grey .columns-image-text {
+    --columns-image-text-image-height: 640px;
+
+    .columns-image-text-row {
+      align-items: stretch;
+    }
+
+    .columns-image-text-text {
+      justify-content: start;
+    }
+  }
+
+  .pink-gradient .columns-image-text {
+    .columns-image-text-text {
+      text-align: start;
+
+      > :not(:has(.btn)) {
+        padding-inline: 0;
+      }
+    }
+
+    a.btn {
+      display: inline-block;
+    }
+  }
+}

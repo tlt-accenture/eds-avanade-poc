@@ -5,3 +5,5 @@ package.json
 package-lock.json
 test/
 workers/
+catalog/
+tools/importer/

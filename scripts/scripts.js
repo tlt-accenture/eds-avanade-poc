@@ -30,8 +30,28 @@ const linkBlocks = [
 // Blocks with self-managed styles
 const components = ['fragment', 'schedule'];
 
+// Edge Delivery turns section-metadata tables into section classes/data; local preview does not.
+const applySectionMetadata = (area) => {
+  area.querySelectorAll('div > .section-metadata').forEach((meta) => {
+    const section = meta.parentElement;
+    [...meta.children].forEach(({ children: [key, val] }) => {
+      const name = key?.textContent.trim().toLowerCase();
+      const value = val?.querySelector('img')?.src || val?.textContent.trim();
+      if (!name || !value) return;
+      if (name === 'style') {
+        const styles = value.split(',').map((s) => s.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-'));
+        section.classList.add(...styles.filter(Boolean));
+      } else {
+        section.dataset[name.replace(/-([a-z])/g, (m, c) => c.toUpperCase())] = value;
+      }
+    });
+    meta.remove();
+  });
+};
+
 // How to decorate an area before loading it
 const decorateArea = ({ area = document }) => {
+  applySectionMetadata(area);
   const eagerLoad = (parent, selector) => {
     const img = parent.querySelector(selector);
     if (!img) return;

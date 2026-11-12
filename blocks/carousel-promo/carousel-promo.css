@@ -1,0 +1,193 @@
+.carousel-promo {
+  --carousel-promo-slide-width: 258px;
+  --carousel-promo-slide-height: 496px;
+  --carousel-promo-gap: var(--spacing-l);
+  --carousel-promo-radius: 24px;
+  --carousel-promo-padding: var(--spacing-l);
+  --carousel-promo-lines: 6;
+  --carousel-promo-title-line-height: normal;
+  --carousel-promo-overlay: linear-gradient(90deg, rgb(0 0 0 / 76%), rgb(0 0 0 / 42%) 46%, transparent 78%);
+  --carousel-promo-control: #ccc;
+  --carousel-promo-dot-width: 32px;
+  --carousel-promo-dot-track: linear-gradient(271deg, color-mix(in srgb, var(--avanade-orange) 50%, transparent) 12.37%, color-mix(in srgb, var(--avanade-magenta) 50%, transparent) 89.13%);
+  --carousel-promo-dot-fill: linear-gradient(90deg, var(--avanade-magenta) 12.37%, var(--avanade-orange) 89.13%);
+  --carousel-promo-duration: 7s;
+
+  container-type: inline-size;
+
+  .carousel-promo-track {
+    display: flex;
+    gap: var(--carousel-promo-gap);
+    margin: 0;
+    padding: 0 calc((100cqi - var(--carousel-promo-slide-width)) / 2);
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .carousel-promo-slide {
+    position: relative;
+    display: flex;
+    flex: 0 0 var(--carousel-promo-slide-width);
+    min-height: var(--carousel-promo-slide-height);
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--carousel-promo-radius);
+    background-color: var(--avanade-charcoal);
+    scroll-snap-align: center;
+  }
+
+  .carousel-promo-image {
+    position: absolute;
+    inset: 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--carousel-promo-overlay);
+    }
+
+    picture,
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .carousel-promo-body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-l);
+    width: 100%;
+    padding: var(--carousel-promo-padding);
+    box-sizing: border-box;
+    color: var(--avanade-white);
+
+    > * {
+      margin: 0;
+    }
+
+    :is(h2, h3) {
+      font-size: var(--heading-font-size-l);
+      line-height: var(--carousel-promo-title-line-height);
+    }
+
+    :is(h2, h3) + p {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: var(--carousel-promo-lines);
+      overflow: hidden;
+    }
+
+    p:has(> a) {
+      margin-top: auto;
+    }
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--button-padding);
+      border: 2px solid var(--avanade-white);
+      border-radius: var(--button-radius);
+      font-size: var(--button-font-size);
+      font-weight: var(--button-font-weight);
+      line-height: var(--button-line-height);
+      color: var(--avanade-charcoal);
+      background-color: var(--avanade-white);
+      text-decoration: none;
+    }
+  }
+
+  .carousel-promo-controls,
+  .carousel-promo-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .carousel-promo-controls {
+    margin-top: 40px;
+  }
+
+  .carousel-promo-dots button {
+    width: var(--carousel-promo-dot-width);
+    height: 16px;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    transition: width 0.2s;
+
+    &::after {
+      content: '';
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--carousel-promo-control);
+    }
+
+    &[aria-current='true'] {
+      width: 78px;
+      background: var(--carousel-promo-dot-track);
+
+      &::after {
+        background: var(--carousel-promo-dot-fill);
+        animation: carousel-promo-progress var(--carousel-promo-duration) linear forwards;
+        animation-play-state: var(--carousel-promo-play, running);
+      }
+    }
+  }
+
+  /* paused by the button, or while a keyboard user is inside the carousel */
+  &:has([aria-pressed='true'], :focus-visible) {
+    --carousel-promo-play: paused;
+  }
+
+  .carousel-promo-pause {
+    width: 48px;
+    height: 48px;
+    margin-inline-start: var(--spacing-s);
+    padding: 0;
+    border: 0;
+    background: var(--carousel-promo-control);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 4a20 20 0 1 0 0 40 20 20 0 0 0 0-40m-3 12.5v15a1.5 1.5 0 0 1-3 0v-15a1.5 1.5 0 0 1 3 0m9 0v15a1.5 1.5 0 0 1-3 0v-15a1.5 1.5 0 0 1 3 0'/%3E%3C/svg%3E") center / contain no-repeat;
+
+    &[aria-pressed='true'] {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 44a20 20 0 1 0 0-40 20 20 0 0 0 0 40m9.77-21.29a1.5 1.5 0 0 1 0 2.58L21.4 32.68A2.2 2.2 0 0 1 18 30.74V17.26a2.2 2.2 0 0 1 3.4-1.93z'/%3E%3C/svg%3E");
+    }
+  }
+}
+
+@keyframes carousel-promo-progress {
+  from { clip-path: inset(0 100% 0 0 round 8px); }
+  to { clip-path: inset(0 round 8px); }
+}
+
+@media (width >= 600px) {
+  .carousel-promo {
+    --carousel-promo-slide-width: 472px;
+    --carousel-promo-slide-height: 400px;
+    --carousel-promo-padding: 40px;
+    --carousel-promo-lines: 4;
+    --carousel-promo-dot-width: 40px;
+  }
+}
+
+@media (width >= 900px) {
+  .carousel-promo {
+    --carousel-promo-slide-width: 60cqi;
+    --carousel-promo-title-line-height: 46px;
+
+    .carousel-promo-body {
+      width: 62%;
+    }
+  }
+}

@@ -1,0 +1,94 @@
+.cards-stats {
+  --cards-stats-max-width: 1128px;
+  --cards-stats-item-spacing: 40px;
+  --cards-stats-rule: 1px solid #ccc;
+  --cards-stats-value-size: 64px;
+  --cards-stats-value-line-height: 1;
+  --cards-stats-value-padding: 40px;
+  --cards-stats-value-fill: var(--gradient-brand);
+
+  max-width: min(var(--grid-container-width), var(--cards-stats-max-width));
+  margin-inline: auto;
+
+  ul {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cards-stats-item {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing-l);
+    margin: 0;
+    padding-block: var(--cards-stats-item-spacing);
+    text-align: center;
+    border-block-end: var(--cards-stats-rule);
+
+    &:first-child {
+      padding-block-start: var(--spacing-l);
+    }
+
+    &:last-child {
+      border-block-end: 0;
+    }
+  }
+
+  .cards-stats-value {
+    margin: 0;
+    padding-block: var(--cards-stats-value-padding);
+    font-size: var(--cards-stats-value-size);
+    font-weight: var(--heading-font-weight);
+    line-height: var(--cards-stats-value-line-height);
+    background-image: var(--cards-stats-value-fill);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .cards-stats-caption {
+    margin: 0;
+    font-size: var(--body-font-size-m);
+    line-height: var(--body-line-height);
+    color: var(--color-text);
+  }
+}
+
+@media (width >= 900px) {
+  .cards-stats {
+    --cards-stats-value-size: 96px;
+    --cards-stats-value-line-height: normal;
+    --cards-stats-value-padding: 26px;
+
+    ul {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cards-stats-item {
+      align-content: start;
+      padding: 0 var(--spacing-l);
+      border-block-end: 0;
+
+      &:first-child {
+        padding-block-start: 0;
+      }
+
+      &:nth-child(n + 3) {
+        margin-block-start: var(--cards-stats-item-spacing);
+        padding-block-start: var(--cards-stats-item-spacing);
+        border-block-start: var(--cards-stats-rule);
+      }
+
+      &:nth-child(odd):not(:last-child)::after {
+        content: "";
+        position: absolute;
+        inset-inline-end: 0;
+        inset-block-start: 50%;
+        block-size: 60%;
+        border-inline-end: var(--cards-stats-rule);
+        translate: 0 -50%;
+      }
+    }
+  }
+}

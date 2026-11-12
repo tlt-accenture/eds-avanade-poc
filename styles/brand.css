@@ -1,0 +1,65 @@
+/* Avanade design system: brand palette first, then the semantic tokens blocks consume. */
+:root {
+  /* light by default; the header toggle can still switch to dark */
+  color-scheme: light;
+
+  /* palette */
+  --avanade-magenta: #ce0569;
+  --avanade-orange: #ff5800;
+  --avanade-charcoal: #333;
+  --avanade-grey-50: #f6f7fb;
+  --avanade-white: #fff;
+  --avanade-gradient: linear-gradient(90deg, var(--avanade-magenta) 12.66%, var(--avanade-orange) 94.55%);
+
+  /* semantic colors (Author Kit names) */
+  --color-dark: var(--avanade-charcoal);
+  --color-text: light-dark(var(--avanade-charcoal), var(--avanade-white));
+  --color-link: light-dark(var(--avanade-charcoal), var(--avanade-white));
+  --color-link-hover: var(--avanade-magenta);
+  --color-brand: var(--avanade-magenta);
+  --color-accent: var(--avanade-orange);
+  --color-background: light-dark(var(--avanade-white), #111);
+  --color-shaded: light-dark(var(--avanade-grey-50), #1b1b1b);
+  --color-on-brand: var(--avanade-white);
+  --gradient-brand: var(--avanade-gradient);
+
+  /* typography */
+  --font-family: "Segoe UI", opensans, roboto, arial, tahoma, helvetica, sans-serif;
+  --heading-font-weight: 700;
+  --heading-gradient: var(--gradient-brand);
+  --heading-gradient-fill: transparent;
+  --heading-font-size-xxl: 36px;
+  --heading-font-size-xl: 28px;
+  --heading-font-size-l: 24px;
+  --heading-font-size-m: 20px;
+  --heading-font-size-s: 18px;
+  --heading-font-size-xs: 16px;
+  --heading-line-height: 1.3;
+  --body-font-size-m: 16px;
+  --body-font-size-l: 18px;
+  --body-line-height: 1.5;
+
+  /* layout */
+  --grid-container-width: min(calc(100% - 48px), 1176px);
+  --spacing-section: 40px;
+
+  /* buttons and links */
+  --button-radius: 28px;
+  --button-padding: 10px 22px;
+  --button-font-size: 14px;
+  --button-font-weight: 600;
+  --button-line-height: 16px;
+  --link-cta-font-weight: 700;
+  --icon-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M13.3 5.3 12 6.6l4.4 4.4H4v2h12.4L12 17.4l1.3 1.3L20 12z'/%3E%3C/svg%3E");
+}
+
+@media (width >= 900px) {
+  :root {
+    --heading-font-size-xxl: 60px;
+    --heading-font-size-xl: 48px;
+    --heading-font-size-l: 36px;
+    --heading-font-size-m: 28px;
+    --heading-font-size-s: 24px;
+    --heading-font-size-xs: 20px;
+  }
+}

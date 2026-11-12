@@ -1,0 +1,207 @@
+{
+  "templates": [
+    {
+      "name": "home",
+      "urls": [
+        "https://www.avanade.com/en-us"
+      ],
+      "representativeUrl": "https://www.avanade.com/en-us",
+      "description": "Avanade homepage: hero with video badge, promo carousel, client stories, image/text feature rows, stats, careers banner and news cards",
+      "blocks": [
+        {
+          "name": "hero-video-badge",
+          "instances": [
+            ".homepage-hero-video"
+          ]
+        },
+        {
+          "name": "carousel-promo",
+          "instances": [
+            "section.promotional-card-carousel"
+          ]
+        },
+        {
+          "name": "cards-case-study",
+          "instances": [
+            ".featured-content-carousel-with-logoline"
+          ]
+        },
+        {
+          "name": "columns-image-text",
+          "instances": [
+            ".timage-left-aligned-image-with-logoline",
+            ".banner-image-with-logoline"
+          ]
+        },
+        {
+          "name": "hero-title-banner",
+          "instances": [
+            ".title-banner"
+          ]
+        },
+        {
+          "name": "cards-stats",
+          "instances": [
+            ".key-insight-metric-blocks"
+          ]
+        },
+        {
+          "name": "cards-news",
+          "instances": [
+            ".cards--default"
+          ]
+        }
+      ],
+      "urlPattern": "/*",
+      "sections": [
+        {
+          "id": "rc2",
+          "name": "Hero",
+          "selector": [
+            "#content > section:has(.homepage-hero-video)",
+            "#content > section:nth-of-type(2)"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-video-badge"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc3",
+          "name": "Promotional carousel",
+          "selector": [
+            "#content > section:has(.promotional-card-carousel)",
+            "#content > section:nth-of-type(3)"
+          ],
+          "style": null,
+          "blocks": [
+            "carousel-promo"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc5",
+          "name": "Intro statement",
+          "selector": [
+            "#content > section:has(.title-reusable)",
+            "#content > section:nth-of-type(5)"
+          ],
+          "style": "light-grey, centered",
+          "blocks": [],
+          "defaultContent": [
+            ".title-reusable",
+            ".rich-text"
+          ]
+        },
+        {
+          "id": "rc6",
+          "name": "Client stories",
+          "selector": [
+            "#content > section:has(.featured-content-carousel-with-logoline)",
+            "#content > section:nth-of-type(6)"
+          ],
+          "style": "light-grey",
+          "blocks": [
+            "cards-case-study"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc8",
+          "name": "Industry",
+          "selector": [
+            "#content > section:nth-of-type(8)"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-image-text"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc9",
+          "name": "Services",
+          "selector": [
+            "#content > section:has(.timage-right-aligned-image-with-logoline)",
+            "#content > section:nth-of-type(9)"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-image-text"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc10",
+          "name": "Insights",
+          "selector": [
+            "#content > section:nth-of-type(10)"
+          ],
+          "style": "light-grey",
+          "blocks": [
+            "columns-image-text"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc11",
+          "name": "The Avanade Story",
+          "selector": [
+            "#content > section:has(.title-banner)",
+            "#content > section:nth-of-type(11)"
+          ],
+          "style": "light-grey, centered",
+          "blocks": [
+            "hero-title-banner"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc12",
+          "name": "Key stats",
+          "selector": [
+            "#content > section:has(.key-insight-metric-blocks)",
+            "#content > section:nth-of-type(12)"
+          ],
+          "style": "light-grey",
+          "blocks": [
+            "cards-stats"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc13",
+          "name": "Careers",
+          "selector": [
+            "#content > section:has(.banner-image-with-logoline)",
+            "#content > section:nth-of-type(13)"
+          ],
+          "style": "pink-gradient",
+          "blocks": [
+            "columns-image-text"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc14",
+          "name": "In the news",
+          "selector": [
+            "#content > section:has(.cards--default)",
+            "#content > section:nth-of-type(14)"
+          ],
+          "style": "centered",
+          "blocks": [
+            "cards-news"
+          ],
+          "defaultContent": [
+            ".cards--default__title"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "projectType": "da"
+  }
+}

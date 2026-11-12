@@ -1,0 +1,36 @@
+{
+  "variantName": "cards-stats",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": "rc12: Light grey (#f6f7fb) band; 2x2 grid of large orange/magenta animated stat numbers (21X, 7K+, 60K, 165K) each with a caption, separated by thin rules. No-image cards in 2x2 grid with oversized colored stat value and caption, divider rules.",
+  "contentPattern": {
+    "source": "get_all_blocks_catalog /block-collection/cards",
+    "columns": "2 (1 for no-images)",
+    "rows": [
+      {
+        "row": 1,
+        "cells": [
+          "block name + variant"
+        ]
+      },
+      {
+        "row": "2..n (one per card)",
+        "cells": [
+          "Image or icon",
+          "Title, description, CTA link"
+        ]
+      }
+    ],
+    "noImagesForm": {
+      "cells": [
+        "Title, description, CTA link"
+      ]
+    },
+    "authoring": "One row per stat: either one cell with value paragraph then caption paragraph, or two cells (value | caption). Values are plain text, not headings."
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "2x2 grid of oversized stat values with captions and divider rules.",
+  "reuseGuidance": "Use for key-figure rows. Not for linked cards.",
+  "sourceUrl": "https://www.avanade.com/en-us"
+}

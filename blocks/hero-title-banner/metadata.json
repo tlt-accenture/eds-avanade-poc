@@ -1,0 +1,36 @@
+{
+  "variantName": "hero-title-banner",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": "rc11: Light grey (#f6f7fb) title banner; centered orange H2 \"The Avanade Story\", centered paragraph and \"Learn more about us\" link. Image-less centered title banner: heading, paragraph and link only.",
+  "contentPattern": {
+    "source": "get_all_blocks_catalog /block-collection/hero",
+    "columns": 1,
+    "rows": [
+      {
+        "row": 1,
+        "cells": [
+          "block name + variant"
+        ]
+      },
+      {
+        "row": 2,
+        "cells": [
+          "Background image (optional)"
+        ]
+      },
+      {
+        "row": 3,
+        "cells": [
+          "Heading, subheading/text, call-to-action (optional)"
+        ]
+      }
+    ],
+    "authoring": "Optional background picture row, then one row with heading, paragraph and CTA link."
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Image-less centered title banner: heading, paragraph and link.",
+  "reuseGuidance": "Use for section-intro banners with no media. Use hero-video-badge for the page hero.",
+  "sourceUrl": "https://www.avanade.com/en-us"
+}
