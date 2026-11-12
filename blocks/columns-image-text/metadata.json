@@ -1,0 +1,31 @@
+{
+  "variantName": "columns-image-text",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": "rc8: White band; image left (portrait photo with logoline accent), text right: orange H2 \"Industry fluency, Microsoft depth\", paragraph, arrow link \"Explore our industry expertise\". Two columns: large portrait image beside heading, text and arrow link; image side alternates by cell order.\nrc9: White band; text left, image right (canyon photo): H2 \"Services built for real world impact\", paragraph, \"Explore our services\" link. Same image/text split as rc8 with image on the right (cell order).\nrc10: Light grey (#f6f7fb) highlighted band; image left, text right: H2 \"From the people deploying it first\", paragraph, 4 bold article links with red left rule, \"Explore more insights\" link. Same image/text split; extra list of article links in the text cell is handled by the same code.\nrc13: Magenta-to-orange linear gradient band (90deg #ce0569 -> #ff5800) with logoline curve; white H2 \"A career that matters\", paragraph and white \"Explore careers\" button left, staircase photo right. Same text/image split on the gradient section; gradient comes from section style.",
+  "contentPattern": {
+    "source": "get_all_blocks_catalog /block-collection/columns",
+    "columns": "n",
+    "rows": [
+      {
+        "row": 1,
+        "cells": [
+          "block name + variant"
+        ]
+      },
+      {
+        "row": "2..n",
+        "cells": [
+          "Column 1 content",
+          "Column 2 content"
+        ]
+      }
+    ],
+    "authoring": "One row per split: an image-only cell and a text cell (heading, paragraph, optional list, CTA). Put the image first for image-left, last for image-right."
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Two-column image beside text; image side follows cell order.",
+  "reuseGuidance": "Use for alternating image/text feature rows. Section backgrounds (grey, gradient) come from section-metadata.",
+  "sourceUrl": "https://www.avanade.com/en-us"
+}

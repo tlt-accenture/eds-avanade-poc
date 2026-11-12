@@ -1,0 +1,36 @@
+{
+  "variantName": "hero-video-badge",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": "rc2: Full-width orange photo background (avanade homepage hero image), centered white H1 and intro paragraph with bold phrases, \"Ask Avanade anything\" AI prompt input, right-hand Partner of the Year 2027 badge image with Play Video (Brightcove) button. Photo background belongs to the hero block, so the section is not colored. Background photo with centered headline, AI prompt input and a video-launching badge image; distinct from a plain image hero.",
+  "contentPattern": {
+    "source": "get_all_blocks_catalog /block-collection/hero",
+    "columns": 1,
+    "rows": [
+      {
+        "row": 1,
+        "cells": [
+          "block name + variant"
+        ]
+      },
+      {
+        "row": 2,
+        "cells": [
+          "Background image (optional)"
+        ]
+      },
+      {
+        "row": 3,
+        "cells": [
+          "Heading, subheading/text, call-to-action (optional)"
+        ]
+      }
+    ],
+    "authoring": "Row 1 (optional): background picture. Last row: cell 1 heading/text/CTA; cell 2 badge picture plus a video link (Brightcove/YouTube embed URL) opened in a dialog."
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Homepage hero with background photo, headline, intro, prompt link and a badge image that opens a video in a modal.",
+  "reuseGuidance": "Use for a top-of-page hero that pairs text with a video-launching badge. Use hero-title-banner for an image-less centered banner.",
+  "sourceUrl": "https://www.avanade.com/en-us"
+}

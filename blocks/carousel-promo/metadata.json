@@ -1,0 +1,31 @@
+{
+  "variantName": "carousel-promo",
+  "baseBlock": "carousel",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": "rc3: White band; 5 auto-rotating slides, each a large image with a dark overlay text panel (H3, paragraph, CTA link), peeking neighbour slides, dot pagination plus pause button. Wide image slides with dark overlay text panel, peeking neighbour slides, dot pagination and autoplay pause.",
+  "contentPattern": {
+    "source": "get_block_details /block-collection/carousel",
+    "columns": 2,
+    "rows": [
+      {
+        "row": 1,
+        "cells": [
+          "block name + variant"
+        ]
+      },
+      {
+        "row": "2..n (one per slide)",
+        "cells": [
+          "Image (only content in cell)",
+          "Title heading, description, CTA link (optional)"
+        ]
+      }
+    ],
+    "authoring": "One row per slide: cell 1 picture; cell 2 heading, description, optional CTA link."
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Autoplaying promotional carousel of wide image slides with an overlay text panel, peeking neighbours, dot pagination and pause.",
+  "reuseGuidance": "Use for rotating promotions. For static image + text, use columns-image-text.",
+  "sourceUrl": "https://www.avanade.com/en-us"
+}

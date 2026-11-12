@@ -1,0 +1,36 @@
+{
+  "variantName": "cards-news",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": "rc14: White band; centered H3 \"In the news\", then 3 white bordered news cards each with a \"News\" tag icon, title and \"Read more\" link to a newsroom article. No-image bordered cards with tag icon label, title and Read more link.",
+  "contentPattern": {
+    "source": "get_all_blocks_catalog /block-collection/cards",
+    "columns": "2 (1 for no-images)",
+    "rows": [
+      {
+        "row": 1,
+        "cells": [
+          "block name + variant"
+        ]
+      },
+      {
+        "row": "2..n (one per card)",
+        "cells": [
+          "Image or icon",
+          "Title, description, CTA link"
+        ]
+      }
+    ],
+    "noImagesForm": {
+      "cells": [
+        "Title, description, CTA link"
+      ]
+    },
+    "authoring": "One row per card: one cell with tag paragraph (optional icon + text, e.g. :news: News), title heading, and link as last paragraph. An optional leading image cell is supported."
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Bordered news cards with a tag label, title and Read more link.",
+  "reuseGuidance": "Use for newsroom / press links. Use cards-case-study for photo-led cards.",
+  "sourceUrl": "https://www.avanade.com/en-us"
+}

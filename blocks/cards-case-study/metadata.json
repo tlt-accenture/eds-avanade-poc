@@ -1,0 +1,36 @@
+{
+  "variantName": "cards-case-study",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": "rc6: Light grey (#f6f7fb) band continuing the intro; 3 white cards, each with a photo, client logo, client name, short description and \"Read more\" link to a client story detail page. White cards with photo on top, client logo, name, short text and arrow Read more link.",
+  "contentPattern": {
+    "source": "get_all_blocks_catalog /block-collection/cards",
+    "columns": "2 (1 for no-images)",
+    "rows": [
+      {
+        "row": 1,
+        "cells": [
+          "block name + variant"
+        ]
+      },
+      {
+        "row": "2..n (one per card)",
+        "cells": [
+          "Image or icon",
+          "Title, description, CTA link"
+        ]
+      }
+    ],
+    "noImagesForm": {
+      "cells": [
+        "Title, description, CTA link"
+      ]
+    },
+    "authoring": "One row per card: cell 1 photo; cell 2 logo picture (optional, first paragraph), client name heading, description, link as last paragraph."
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Grid of client story cards: photo, client logo, name, description and Read more link.",
+  "reuseGuidance": "Use for client stories / case studies that link to detail pages.",
+  "sourceUrl": "https://www.avanade.com/en-us"
+}

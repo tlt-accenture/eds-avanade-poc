@@ -1,0 +1,119 @@
+.cards-case-study {
+  --cards-case-study-gap: var(--spacing-l);
+  --cards-case-study-padding: var(--spacing-l);
+  --cards-case-study-stack: 16px;
+  --cards-case-study-radius: 24px;
+  --cards-case-study-width: 269px;
+  --cards-case-study-image-height: 272px;
+  --cards-case-study-logo-height: 52px;
+  --cards-case-study-bg: var(--color-background);
+  --cards-case-study-shadow: drop-shadow(rgb(1 1 1 / 10%) 0 10px 8px);
+
+  max-width: var(--grid-container-width);
+  margin-inline: auto;
+
+  ul {
+    display: grid;
+    grid-auto-columns: var(--cards-case-study-width);
+    grid-auto-flow: column;
+    gap: var(--cards-case-study-gap);
+    margin: 0;
+    padding: 0 0 40px;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .cards-case-study-card {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--cards-case-study-radius);
+    background: var(--cards-case-study-bg);
+    color: var(--color-text);
+    filter: var(--cards-case-study-shadow);
+    scroll-snap-align: start;
+  }
+
+  .cards-case-study-image img {
+    display: block;
+    width: 100%;
+    height: var(--cards-case-study-image-height);
+    object-fit: cover;
+  }
+
+  .cards-case-study-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--cards-case-study-stack);
+    padding: var(--cards-case-study-padding);
+
+    > * {
+      margin: 0;
+    }
+
+    h3 {
+      font-size: var(--body-font-size-l);
+      line-height: 26px;
+    }
+  }
+
+  .cards-case-study-logo img {
+    display: block;
+    width: auto;
+    height: var(--cards-case-study-logo-height);
+    object-fit: cover;
+  }
+
+  .cards-case-study-cta {
+    margin-top: auto;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-s);
+      color: var(--color-link);
+      font-size: var(--body-font-size-m);
+      font-weight: var(--link-cta-font-weight);
+      line-height: 24px;
+      text-decoration: none;
+
+      &::after {
+        content: "";
+        width: 24px;
+        height: 24px;
+        background-color: currentcolor;
+        mask: var(--icon-arrow-right) center / contain no-repeat;
+      }
+
+      &:hover {
+        background-image: var(--gradient-brand);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        &::after {
+          background-image: var(--gradient-brand);
+        }
+      }
+    }
+  }
+}
+
+@media (width >= 900px) {
+  .cards-case-study ul {
+    grid-template-columns: repeat(3, minmax(0, 360px));
+    grid-auto-flow: row;
+    justify-content: center;
+    overflow-x: visible;
+  }
+
+  .cards-case-study-body p:not([class]) {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+  }
+}
