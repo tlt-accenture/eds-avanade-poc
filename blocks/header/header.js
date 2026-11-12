@@ -1,4 +1,5 @@
 import { getConfig, getMetadata, ifLocalStorage } from '../../scripts/ak.js';
+import { getSvg } from '../../scripts/utils/svg.js';
 import { loadFragment } from '../fragment/fragment.js';
 import { setColorScheme } from '../section-metadata/section-metadata.js';
 
@@ -18,7 +19,8 @@ function closeAllMenus() {
 }
 
 function docClose(e) {
-  if (e.target.closest('header')) return;
+  // a click on the blurred backdrop (header::before) targets the header itself
+  if (e.target.closest('header > *')) return;
   closeAllMenus();
 }
 
@@ -40,37 +42,87 @@ function menuFocusout(e) {
   closeAllMenus();
 }
 
-function toggleMenu(container) {
-  const isOpen = container.classList.contains('is-open');
+function openMenu(container) {
+  if (container.classList.contains('is-open')) return;
   closeAllMenus();
-  if (isOpen) return;
   document.addEventListener('click', docClose);
   container.classList.add('is-open');
   const trigger = menuTriggers.get(container);
   if (trigger) trigger.ariaExpanded = 'true';
 }
 
-function decorateLanguage(btn) {
-  const section = btn.closest('.section');
+function toggleMenu(container) {
+  if (container.classList.contains('is-open')) {
+    closeAllMenus();
+    return;
+  }
+  openMenu(container);
+}
+
+let menuId = 0;
+
+const svgIcon = (name) => getSvg({ name, className: `icon icon-${name}` });
+
+// A link whose href ends in "=" is a query: its text is the placeholder; the value is appended.
+function decorateQueries(root, btn) {
+  for (const link of root.querySelectorAll('a[href$="="]')) {
+    const form = document.createElement('form');
+    form.className = 'header-query';
+    form.role = 'search';
+    const input = document.createElement('input');
+    input.type = 'search';
+    input.placeholder = link.textContent;
+    input.ariaLabel = link.textContent;
+    const submit = document.createElement('button');
+    submit.ariaLabel = btn.textContent.trim();
+    submit.append(svgIcon('arrow-right'));
+    const lead = btn.querySelector('svg')?.cloneNode(true);
+    form.append(...(lead ? [lead] : []), input, submit);
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (input.value.trim()) window.location.href = `${link.href}${encodeURIComponent(input.value.trim())}`;
+    });
+    (link.closest('p') || link).replaceWith(form);
+  }
+}
+
+function markCurrent(root) {
+  const here = `${window.location.pathname}/`;
+  for (const a of root.querySelectorAll('a')) {
+    if (a.origin === window.location.origin && here.includes(`${a.pathname}/`)) a.ariaCurrent = 'true';
+  }
+}
+
+// Action buttons that open a panel loaded from a header sub-fragment (/fragments/nav/header/<name>)
+function decoratePanel(btn, name, { current = false, closeIcon = false } = {}) {
+  const wrapper = btn.parentElement;
   btn.ariaExpanded = 'false';
-  menuTriggers.set(section, btn);
-  section.addEventListener('keydown', menuKeydown);
-  section.addEventListener('focusout', menuFocusout);
+  if (closeIcon) btn.append(svgIcon('close'));
+  menuTriggers.set(wrapper, btn);
+  wrapper.addEventListener('keydown', menuKeydown);
+  wrapper.addEventListener('focusout', menuFocusout);
   btn.addEventListener('click', async () => {
-    let menu = section.querySelector('.language.menu');
-    if (!menu) {
-      const content = document.createElement('div');
-      content.classList.add('block-content');
-      const fragment = await loadFragment(`${locale.prefix}${HEADER_PATH}/languages`);
-      menu = document.createElement('div');
-      menu.className = 'language menu';
+    if (!wrapper.querySelector('.menu')) {
+      const fragment = await loadFragment(`${locale.prefix}${HEADER_PATH}/${name}`);
+      decorateQueries(fragment, btn);
+      if (current) markCurrent(fragment);
+      const menu = document.createElement('div');
+      menuId += 1;
+      menu.id = `header-menu-${menuId}`;
+      menu.className = `${name} menu`;
       menu.append(fragment);
-      content.append(menu);
-      section.append(content);
+      wrapper.append(menu);
+      btn.setAttribute('aria-controls', menu.id);
     }
-    toggleMenu(section);
+    toggleMenu(wrapper);
+    if (wrapper.classList.contains('is-open')) wrapper.querySelector('.menu input')?.focus();
   });
 }
+
+const decorateLanguage = (btn) => {
+  decoratePanel(btn, 'languages', { current: true });
+  btn.append(svgIcon('chevron-down'));
+};
 
 function decorateScheme(btn) {
   const dark = () => {
@@ -111,9 +163,14 @@ function teardownDrawer(header) {
   }
 }
 
+const drawerModes = new WeakMap();
+
 function syncDrawerState(header) {
   const toggle = header.querySelector('.action-wrapper.nav-toggle button');
   const drawerMode = !!toggle?.checkVisibility();
+  // crossing the breakpoint: a hover panel or sub-panel from the other layout must not linger
+  if (drawerModes.has(header) && drawerModes.get(header) !== drawerMode) closeAllMenus();
+  drawerModes.set(header, drawerMode);
   if (!drawerMode && header.classList.contains('is-mobile-open')) {
     teardownDrawer(header);
   }
@@ -133,10 +190,12 @@ function closeDrawer(header, toggle) {
 
 function decorateNavToggle(btn) {
   btn.ariaExpanded = 'false';
+  btn.append(svgIcon('close'));
   btn.addEventListener('click', () => {
     const header = btn.closest('header');
     if (!header) return;
     const opening = !header.classList.contains('is-mobile-open');
+    closeAllMenus();
     if (!opening) {
       closeDrawer(header, btn);
       return;
@@ -159,6 +218,8 @@ const HEADER_ACTIONS = [
   { name: 'scheme', path: '/tools/widgets/scheme', decorate: decorateScheme },
   { name: 'language', path: '/tools/widgets/language', decorate: decorateLanguage },
   { name: 'nav-toggle', path: '/tools/widgets/toggle', decorate: decorateNavToggle },
+  { name: 'ai', path: '/tools/widgets/ai', decorate: (btn) => decoratePanel(btn, 'ai', { closeIcon: true }) },
+  { name: 'search', path: '/tools/widgets/search', decorate: (btn) => decoratePanel(btn, 'search', { closeIcon: true }) },
 ];
 
 function decorateAction(header, { name, path, decorate }) {
@@ -203,33 +264,76 @@ function decorateMegaMenu(li) {
   return wrapper;
 }
 
-let menuId = 0;
+const isDrawer = (el) => !!el.closest('header')?.querySelector('.action-wrapper.nav-toggle button')?.checkVisibility();
 
-function decorateNavItem(li) {
+// Drawer sub-panels: a back control, then the item as a heading (its link, when it has one)
+function decorateSubPanel(menu, label, link, backText, trigger) {
+  const back = document.createElement('button');
+  back.type = 'button';
+  back.className = 'menu-back';
+  back.append(svgIcon('chevron-down'), backText);
+  back.addEventListener('click', () => {
+    closeAllMenus();
+    trigger.focus();
+  });
+  const heading = document.createElement('p');
+  heading.className = 'menu-heading';
+  const headingLink = link?.cloneNode(true);
+  headingLink?.removeAttribute('class');
+  heading.append(headingLink || label.textContent);
+  menu.prepend(back, heading);
+}
+
+function decorateNavItem(li, backText) {
   li.classList.add('main-nav-item');
-  const link = li.querySelector(':scope > p > a');
+  const label = li.querySelector(':scope > p');
+  const link = label?.querySelector(':scope > a');
   if (link) link.classList.add('main-nav-link');
   if (link && link.pathname === window.location.pathname) link.ariaCurrent = 'page';
   const menu = decorateMegaMenu(li) || decorateMenu(li);
-  if (!menu || !link) return;
+  if (!menu || !label) return;
 
   menuId += 1;
   menu.id = `header-menu-${menuId}`;
   const btn = document.createElement('button');
-  btn.className = 'main-nav-link';
   btn.type = 'button';
-  btn.textContent = link.textContent;
   btn.ariaExpanded = 'false';
   btn.setAttribute('aria-controls', menu.id);
-  link.replaceWith(btn);
+  decorateSubPanel(menu, label, link, backText, btn);
+  if (link) {
+    // the label navigates; a separate disclosure button opens the menu
+    btn.className = 'main-nav-toggle';
+    btn.ariaLabel = link.textContent;
+    btn.append(svgIcon('chevron-down'));
+    label.append(btn);
+    // in the drawer the whole row opens the sub-panel; its heading carries the link instead
+    link.addEventListener('click', (e) => {
+      if (!isDrawer(li)) return;
+      e.preventDefault();
+      toggleMenu(li);
+    });
+  } else {
+    btn.className = 'main-nav-link';
+    btn.append(label.textContent, svgIcon('chevron-down'));
+    label.replaceChildren(btn);
+  }
   menuTriggers.set(li, btn);
 
   btn.addEventListener('click', () => {
     toggleMenu(li);
   });
+  // mouse hover also opens; the panel sits inside the item, so moving into it keeps it open
+  li.addEventListener('pointerenter', (e) => {
+    if (e.pointerType === 'mouse' && !isDrawer(li)) openMenu(li);
+  });
+  li.addEventListener('pointerleave', (e) => {
+    if (e.pointerType === 'mouse' && !isDrawer(li) && li.classList.contains('is-open')) closeAllMenus();
+  });
 }
 
 const SKIP_PATH = '/tools/widgets/skip';
+const BACK_PATH = '/tools/widgets/back';
+const BACK_FALLBACK = 'Main Menu';
 const SKIP_FALLBACK = 'Skip to main content';
 
 export function decorateSkipLink(header) {
@@ -274,9 +378,16 @@ export function decorateNavSection(section) {
   if (section.dataset.label) nav.ariaLabel = section.dataset.label;
   navContent.append(nav);
 
+  // drawer "back" label: authored as [Main Menu](/tools/widgets/back), English fallback
+  const authoredBack = section.querySelector(`[href*="${BACK_PATH}"]`);
+  const backText = document.createElement('span');
+  backText.textContent = authoredBack?.textContent || BACK_FALLBACK;
+  if (!authoredBack) backText.lang = 'en';
+  authoredBack?.closest('p')?.remove();
+
   const mainNavItems = section.querySelectorAll('nav > ul > li');
   for (const navItem of mainNavItems) {
-    decorateNavItem(navItem);
+    decorateNavItem(navItem, backText.cloneNode(true));
   }
   nav.addEventListener('keydown', menuKeydown);
   nav.addEventListener('focusout', menuFocusout);
@@ -292,6 +403,11 @@ export function decorateHeaderContent(header) {
   if (sections[0]) decorateBrandSection(sections[0]);
   if (sections[1]) decorateNavSection(sections[1]);
   if (sections[2]) decorateActionSection(sections[2]);
+  // nav + actions share one container that fills the bar after the brand
+  const main = document.createElement('div');
+  main.className = 'header-main';
+  sections[1]?.before(main);
+  main.append(...[sections[1], sections[2]].filter(Boolean));
 
   for (const action of HEADER_ACTIONS) {
     decorateAction(header, action);

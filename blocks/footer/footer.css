@@ -1,57 +1,218 @@
 footer {
+  --footer-background: light-dark(#f5f7fa, #1b1b1b);
+  --footer-divider: light-dark(#e2e3e6, #3a3a3a);
+  --footer-logo-width: 146px;
+  --footer-logo-height: 55px;
+  --footer-tagline-size: var(--body-font-size-l);
+  --footer-link-size: 20px;
+
+  display: block;
+  background-color: var(--footer-background);
+  color: var(--color-text);
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+
   a {
+    color: var(--color-text);
     text-decoration: none;
+
+    &:not(:has(.icon)):hover {
+      text-decoration: underline;
+    }
   }
 
-  .footer-content {
-    max-width: var(--grid-container-width);
-    margin: 48px auto;
-    font-size: 14px;
-  }
-
-  .section-legal ul {
+  ul {
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .section-copyright p {
+  li,
+  p {
     margin: 0;
   }
 
-  .section {
+  li a {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .footer-content {
+    max-width: 1128px;
+    margin: 0 auto;
+    padding-inline: var(--spacing-l);
+  }
+
+  .section > .default-content {
+    max-width: none;
+    margin: 0;
+  }
+
+  /* logo + tagline, divider below */
+  .section-brand {
+    padding-block: 40px;
+    border-bottom: 1px solid var(--footer-divider);
+
     .default-content {
-      max-width: initial;
-      margin: initial;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--spacing-m);
     }
+
+    a {
+      display: flex;
+    }
+
+    /* the logo artwork is wider than its square icon box: let it draw past it and reserve its width */
+    svg {
+      width: var(--footer-logo-height);
+      height: var(--footer-logo-height);
+      margin-block: 1px;
+      margin-inline-end: calc(var(--footer-logo-width) - var(--footer-logo-height));
+      overflow: visible;
+    }
+
+    p:last-child {
+      font-size: var(--footer-tagline-size);
+      font-weight: var(--heading-font-weight);
+      line-height: normal;
+      text-align: end;
+    }
+  }
+
+  .footer-icon-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  /* primary link columns, stacked on small screens; 41px because avanade.com's divider is a 2px rule */
+  .section-links {
+    padding-block: 41px 40px;
+
+    .default-content {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .default-content > ul:not(.footer-social) a {
+      display: block;
+    }
+
+    .default-content > ul:not(.footer-social) > li > a {
+      font-size: var(--footer-link-size);
+      font-weight: var(--heading-font-weight);
+      line-height: 24px;
+    }
+
+    ul:first-child {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    ul:first-child + ul > li {
+      padding-block-end: var(--spacing-s);
+
+      &:has(ul) {
+        padding-block-end: 40px;
+      }
+    }
+
+    li ul {
+      margin-block-start: var(--spacing-s);
+    }
+  }
+
+  .footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-block-start: 32px;
+
+    a,
+    svg {
+      display: block;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  /* avanade.com's legal list runs 12px past the column end; that keeps its longest link on one line at 375px */
+  .section-legal {
+    ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-l);
+      margin-inline: -2px -12px;
+      text-align: center;
+    }
+  }
+
+  .section-copyright {
+    padding-block: var(--spacing-l) 40px;
+    text-align: center;
   }
 }
 
 @media (width >= 900px) {
   footer {
-    margin: 0;
+    --footer-tagline-size: 20px;
 
-    .section-legal {
-      display: flex;
-      justify-content: end;
-      gap: var(--spacing-xl);
-      margin-bottom: 24px;
+    .section-links {
+      padding-block-end: var(--spacing-l);
 
-      ul {
-        display: flex;
-        justify-content: end;
-        gap: var(--spacing-xl);
-      }
-
-      li {
-        margin: 0;
+      .default-content {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-l);
       }
     }
 
+    .footer-social {
+      justify-self: end;
+      margin: 0;
+    }
+
+    /* every item but the last carries a trailing 12px, as on avanade.com */
+    .section-legal ul {
+      flex-flow: row wrap;
+      justify-content: center;
+      gap: var(--spacing-s) 0;
+      margin-inline: 0;
+    }
+
+    .section-legal li:not(:last-child) {
+      margin-inline-end: 12px;
+    }
+
     .section-copyright {
-      display: flex;
-      justify-content: end;
-      gap: var(--spacing-xl);
+      padding-block-start: 48px;
+    }
+  }
+}
+
+@media (width >= 1200px) {
+  footer {
+    --footer-tagline-size: 24px;
+
+    .section-links .default-content {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .footer-social {
+      grid-column: 4;
+    }
+
+    .section-legal ul {
+      max-width: 720px;
+      margin-inline: auto;
     }
   }
 }
