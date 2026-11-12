@@ -7,3 +7,4 @@ test/
 workers/
 catalog/
 tools/importer/
+progress/
