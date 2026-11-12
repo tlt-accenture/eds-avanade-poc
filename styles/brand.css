@@ -53,6 +53,12 @@
   --icon-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M13.3 5.3 12 6.6l4.4 4.4H4v2h12.4L12 17.4l1.3 1.3L20 12z'/%3E%3C/svg%3E");
 }
 
+@media (width >= 1200px) {
+  :root {
+    --header-height: 80px;
+  }
+}
+
 @media (width >= 900px) {
   :root {
     --heading-font-size-xxl: 60px;

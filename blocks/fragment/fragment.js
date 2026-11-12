@@ -29,12 +29,15 @@ function applyPageStyles(fragment) {
  * @returns {HTMLElement} The root element of the fragment
  */
 export async function loadFragment(path) {
-  const resp = await fetch(`${path}`);
+  // The local workspace preview serves pages under /content; site-relative fragments live there too
+  const inPreview = window.location.pathname.startsWith('/content/');
+  const base = path.startsWith('/') && inPreview ? '/content' : '';
+  const resp = await fetch(`${base}${path}`);
   if (!resp.ok) throw Error(`Couldn't fetch ${path}`);
 
   const html = await resp.text();
   const doc = new DOMParser().parseFromString(html, 'text/html');
-  replaceDotMedia(path, doc);
+  replaceDotMedia(`${base}${path}`, doc);
 
   const sections = doc.body.querySelectorAll('main > div');
   const fragment = document.createElement('div');

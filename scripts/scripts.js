@@ -30,7 +30,25 @@ const linkBlocks = [
 // Blocks with self-managed styles
 const components = ['fragment', 'schedule'];
 
-// Edge Delivery turns section-metadata tables into section classes/data; local preview does not.
+// The local workspace preview (pages under /content) serves authored HTML as-is. Edge Delivery
+// converts section-metadata tables and :icon: tokens server-side; mirror that in the preview only.
+const inPreview = window.location.pathname.startsWith('/content/');
+
+const applyIcons = (area) => {
+  const token = /:([a-z0-9-]+):/;
+  const walker = document.createTreeWalker(area.body ?? area, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walker.nextNode()) {
+    if (token.test(walker.currentNode.nodeValue)) nodes.push(walker.currentNode);
+  }
+  for (const node of nodes) {
+    const parts = node.nodeValue.split(/:([a-z0-9-]+):/);
+    node.replaceWith(...parts.map((part, i) => (i % 2
+      ? Object.assign(document.createElement('span'), { className: `icon icon-${part}` })
+      : part)).filter((part) => part !== ''));
+  }
+};
+
 const applySectionMetadata = (area) => {
   area.querySelectorAll('div > .section-metadata').forEach((meta) => {
     const section = meta.parentElement;
@@ -51,7 +69,10 @@ const applySectionMetadata = (area) => {
 
 // How to decorate an area before loading it
 const decorateArea = ({ area = document }) => {
-  applySectionMetadata(area);
+  if (inPreview) {
+    applySectionMetadata(area);
+    applyIcons(area);
+  }
   const eagerLoad = (parent, selector) => {
     const img = parent.querySelector(selector);
     if (!img) return;
