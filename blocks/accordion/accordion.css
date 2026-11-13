@@ -1,0 +1,191 @@
+.accordion {
+  --accordion-width: 1128px;
+  --accordion-rule: #ccc;
+  --accordion-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m5 9.5 7 7 7-7' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-l);
+  max-width: min(var(--grid-container-width), var(--accordion-width));
+  margin-inline: auto;
+  padding-bottom: 40px;
+  text-align: start;
+
+  .accordion-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-l);
+    padding: var(--spacing-l);
+    border-radius: 20px;
+    background: var(--gradient-brand);
+    color: var(--color-on-brand);
+    font-size: var(--heading-font-size-l);
+    font-weight: var(--heading-font-weight);
+    line-height: normal;
+    list-style: none;
+    cursor: pointer;
+
+    /* Safari still draws its marker without this */
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      content: "";
+      flex: none;
+      width: 48px;
+      height: 48px;
+      background-color: currentcolor;
+      mask: var(--accordion-chevron) center / contain no-repeat;
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: rotate 0.3s linear;
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-brand);
+      outline-offset: 2px;
+    }
+
+    > * {
+      margin: 0;
+      font: inherit;
+      color: inherit;
+    }
+  }
+
+  [open] > .accordion-title::after {
+    rotate: 180deg;
+  }
+
+  .accordion-body {
+    margin-block: var(--spacing-xl);
+    padding-inline: var(--spacing-l);
+
+    > * {
+      margin: 0;
+    }
+
+    > h4 {
+      font-size: var(--heading-font-size-m);
+      line-height: normal;
+    }
+
+    > * + p {
+      margin-top: 16px;
+    }
+
+    > p + p {
+      margin-top: var(--spacing-l);
+    }
+
+    > p:has(> a:only-child) {
+      margin-top: 16px;
+    }
+  }
+
+  p > a:only-child:not(.btn) {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-s);
+    color: var(--color-link);
+    font-weight: var(--link-cta-font-weight);
+    line-height: 24px;
+    text-decoration: none;
+
+    &::after {
+      content: "";
+      flex: none;
+      width: 24px;
+      height: 24px;
+      background: currentcolor;
+      mask: var(--icon-arrow-right) center / contain no-repeat;
+    }
+
+    &:hover {
+      background: var(--gradient-brand);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      &::after {
+        background: linear-gradient(90deg, var(--avanade-orange), var(--avanade-magenta));
+      }
+    }
+  }
+}
+
+/* faq: plain rows with dividers instead of gradient pills */
+.accordion.faq {
+  gap: 0;
+  padding-bottom: 0;
+
+  .accordion-item {
+    border-top: 1px solid var(--accordion-rule);
+  }
+
+  .accordion-title {
+    gap: 16px;
+    padding: var(--spacing-l) 0;
+    border-radius: 0;
+    background: none;
+    color: var(--color-text);
+    font-size: var(--heading-font-size-s);
+    line-height: normal;
+
+    &::after {
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover {
+      background: var(--gradient-brand);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .accordion-body {
+    margin: 0 0 var(--spacing-l);
+    padding: 0 40px 0 0;
+  }
+}
+
+@media (width >= 600px) {
+  .accordion {
+    .accordion-title {
+      padding-inline: 40px;
+    }
+
+    .accordion-body {
+      padding-inline: 40px 124px;
+    }
+  }
+
+  .accordion.faq {
+    .accordion-title {
+      gap: var(--spacing-l);
+    }
+
+    .accordion-body {
+      padding-right: 48px;
+    }
+  }
+}
+
+@media (width >= 900px) {
+  .accordion {
+    .accordion-title {
+      line-height: 46px;
+    }
+
+    .accordion-body {
+      padding-inline-end: 96px;
+
+      > h4 {
+        line-height: 36px;
+      }
+    }
+  }
+}

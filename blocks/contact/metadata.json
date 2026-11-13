@@ -1,0 +1,41 @@
+{
+  "variantName": "contact",
+  "baseBlock": "custom",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": "rc16: Light grey vertical gradient (#f5f7fa to white). New block as directed: heading + button left, rounded portrait photo right; a later form embed can slot into the text cell.",
+  "contentPattern": {
+    "source": "custom (columns-like split)",
+    "columns": 2,
+    "rows": [
+      {
+        "row": 1,
+        "cells": [
+          "contact"
+        ]
+      },
+      {
+        "row": 2,
+        "cells": [
+          "H2, button link to /en-us/contact",
+          "Image"
+        ]
+      }
+    ],
+    "authoring": "One row, two cells: cell 1 H2 and a bold link to /en-us/contact (renders as the primary button); cell 2 image only."
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": {
+    "description": "Contact prompt: heading and button link beside a rounded portrait photo (stands in for the Marketo form).",
+    "pagesUsing": [
+      {
+        "url": "https://www.avanade.com/en-us/services/cloud",
+        "path": "/en-us/services/cloud"
+      }
+    ],
+    "reuseCount": 0,
+    "lastUsed": "2026-11-12"
+  },
+  "reuseGuidance": "Use where a page invites visitors to the contact page. No form fields; a form embed can later go in the text cell.",
+  "sourceUrl": "https://www.avanade.com/en-us/services/cloud"
+}

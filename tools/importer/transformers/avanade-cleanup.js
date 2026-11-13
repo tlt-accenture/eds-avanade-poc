@@ -5,19 +5,13 @@
  * Avanade cleanup transformer.
  *
  * Removable sections inside #content (contact-us popover, decorative curve-only
- * sections rc4 / rc7 / rc15) are emptied in beforeTransform but their <section>
+ * and empty spacer sections, on any template) are emptied in beforeTransform but their <section>
  * shells are kept so the template's `#content > section:nth-of-type(n)` selectors
  * still resolve to the right elements. The shells are removed in afterTransform.
  */
 
 const SHELL_ATTR = 'data-excat-remove';
 
-// Decorative curve/logoline-only sections: rc4, rc7, rc15
-const DECORATIVE_SECTION_SELECTORS = [
-  '#content > section:nth-of-type(4)',
-  '#content > section:nth-of-type(7)',
-  '#content > section:nth-of-type(15)',
-];
 
 function isDecorativeOnly(section) {
   // Safety check: only a single decorative image, no headings or text content.
@@ -32,14 +26,28 @@ function emptyAsShell(el) {
 }
 
 export default function transform(hookName, element, payload) {
+  // The importer drops <script> before transform; keep Next.js page data (full FAQ answers,
+  // lazy image URLs) readable by parsers in a plain element, removed in afterTransform.
+  if (hookName === 'preprocess') {
+    const data = element.querySelector('script#__NEXT_DATA__');
+    if (data && !element.querySelector('[data-excat-next-data]')) {
+      const keep = element.ownerDocument.createElement('div');
+      keep.setAttribute('data-excat-next-data', '');
+      keep.textContent = data.textContent;
+      element.append(keep);
+    }
+    return;
+  }
+
   if (hookName === 'beforeTransform') {
     // Hidden contact-us popover (Marketo form), keep shell for nth-of-type stability.
     element.querySelectorAll('section.contact-us.is-popover, #contact-us-popover')
       .forEach(emptyAsShell);
 
-    DECORATIVE_SECTION_SELECTORS.forEach((sel) => {
-      const section = element.querySelector(sel);
-      if (section && isDecorativeOnly(section)) emptyAsShell(section);
+    // Decorative curve/logoline-only sections and empty spacers (homepage rc4/rc7/rc15,
+    // service pages between most bands).
+    element.querySelectorAll('#content > section').forEach((section) => {
+      if (isDecorativeOnly(section)) emptyAsShell(section);
     });
 
     // Site chrome and third-party widgets.
@@ -73,7 +81,7 @@ export default function transform(hookName, element, payload) {
   }
 
   if (hookName === 'afterTransform') {
-    element.querySelectorAll(`[${SHELL_ATTR}]`).forEach((el) => el.remove());
+    element.querySelectorAll(`[${SHELL_ATTR}], [data-excat-next-data]`).forEach((el) => el.remove());
 
     WebImporter.DOMUtils.remove(element, [
       'script',

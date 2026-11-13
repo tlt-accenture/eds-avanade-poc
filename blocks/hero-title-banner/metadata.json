@@ -26,11 +26,51 @@
         ]
       }
     ],
-    "authoring": "Optional background picture row, then one row with heading, paragraph and CTA link."
+    "authoring": "Optional background picture row, then one row with heading, paragraph and CTA link. Split option: one content cell with a heading and paragraphs; the heading renders left and everything after it right (stacked on mobile).",
+    "options": {
+      "split": {
+        "source": "get_all_blocks_catalog /block-collection/hero (image-less form)",
+        "columns": 1,
+        "rows": [
+          {
+            "row": 1,
+            "cells": [
+              "hero-title-banner (split)"
+            ]
+          },
+          {
+            "row": 2,
+            "cells": [
+              "H2, paragraphs (split option: heading renders left, the rest right)"
+            ]
+          }
+        ]
+      }
+    }
   },
-  "options": [],
+  "options": [
+    {
+      "class": "split",
+      "label": "Split"
+    }
+  ],
   "memberVariantIds": [],
-  "usage": "Image-less centered title banner: heading, paragraph and link.",
+  "usage": {
+    "description": "Image-less centered title banner: heading, paragraph and link.",
+    "pagesUsing": [
+      {
+        "url": "https://www.avanade.com/en-us",
+        "path": "/en-us"
+      },
+      {
+        "url": "https://www.avanade.com/en-us/services/cloud",
+        "path": "/en-us/services/cloud",
+        "option": "split"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-11-12"
+  },
   "reuseGuidance": "Use for section-intro banners with no media. Use hero-video-badge for the page hero.",
   "sourceUrl": "https://www.avanade.com/en-us"
 }

@@ -1,0 +1,179 @@
+.quote-carousel {
+  --quote-carousel-max-width: 1128px;
+  --quote-carousel-mark-size: 140px;
+  --quote-carousel-mark-line-height: 154px;
+  --quote-carousel-mark-height: 112px;
+  --quote-carousel-mark-offset: -21px;
+  --quote-carousel-gap: 24px;
+  --quote-carousel-rule-width: 88px;
+  --quote-carousel-control-size: 28px;
+  --quote-carousel-dot-width: 40px;
+  --quote-carousel-dot-color: #ccc;
+
+  max-width: min(var(--grid-container-width), var(--quote-carousel-max-width));
+  margin-inline: auto;
+  color: var(--color-text);
+
+  .quote-carousel-track {
+    display: grid;
+    grid-auto-columns: 100%;
+    grid-auto-flow: column;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .quote-carousel-slide {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-content: start;
+    gap: var(--quote-carousel-gap);
+    margin: 0;
+    scroll-snap-align: start;
+
+    &::before {
+      content: "\201C" / "";
+      grid-row: span 2;
+      height: var(--quote-carousel-mark-height);
+      margin-top: var(--quote-carousel-mark-offset);
+      font-family: Georgia, opensans, roboto, arial, tahoma, helvetica, sans-serif;
+      font-size: var(--quote-carousel-mark-size);
+      font-weight: 400;
+      line-height: var(--quote-carousel-mark-line-height);
+      letter-spacing: -0.408px;
+      background-image: var(--gradient-brand);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  blockquote {
+    margin: 0;
+    font-size: var(--heading-font-size-m);
+    font-weight: var(--heading-font-weight);
+    line-height: normal;
+
+    > * {
+      margin: 0;
+    }
+  }
+
+  figcaption {
+    font-size: var(--body-font-size-m);
+    line-height: 24px;
+
+    &::before {
+      content: "";
+      display: block;
+      width: var(--quote-carousel-rule-width);
+      height: 2px;
+      margin-bottom: 16px;
+      background: currentcolor;
+    }
+  }
+
+  .quote-carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 40px;
+  }
+
+  button {
+    position: relative;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+
+    &[aria-disabled="true"] {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-brand);
+      outline-offset: 2px;
+    }
+  }
+
+  .quote-carousel-prev,
+  .quote-carousel-next {
+    width: var(--quote-carousel-control-size);
+    height: var(--quote-carousel-control-size);
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 40%;
+      height: 40%;
+      margin: auto;
+      border: solid currentcolor;
+      border-width: 0 0 2px 2px;
+      rotate: 45deg;
+    }
+  }
+
+  .quote-carousel-prev {
+    margin-inline-end: 20px;
+  }
+
+  .quote-carousel-next {
+    margin-inline-start: 20px;
+
+    &::before {
+      rotate: -135deg;
+    }
+  }
+
+  .quote-carousel-dot {
+    width: var(--quote-carousel-dot-width);
+    height: 32px;
+
+    &::after {
+      content: "";
+      display: block;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--quote-carousel-dot-color);
+    }
+
+    &[aria-current="true"]::after {
+      background: var(--gradient-brand);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .quote-carousel .quote-carousel-track {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (width >= 900px) {
+  .quote-carousel {
+    --quote-carousel-mark-size: 183px;
+    --quote-carousel-mark-line-height: 160px;
+    --quote-carousel-mark-height: 80px;
+    --quote-carousel-mark-offset: 0;
+
+    blockquote {
+      line-height: 36px;
+    }
+
+    figcaption {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: var(--body-font-size-xl);
+
+      &::before {
+        flex: none;
+        margin-bottom: 0;
+      }
+    }
+  }
+}

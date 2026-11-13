@@ -21,11 +21,52 @@
         ]
       }
     ],
-    "authoring": "One row per split: an image-only cell and a text cell (heading, paragraph, optional list, CTA). Put the image first for image-left, last for image-right."
+    "authoring": "One row per split: an image-only cell and a text cell (heading, paragraph, optional list, CTA). Put the image first for image-left, last for image-right. Highlights option: in the text cell, each paragraph that starts with bold text (bold title, then description) gets the magenta-to-orange left rule; bullet lists keep the same rule.",
+    "options": {
+      "highlights": {
+        "source": "get_all_blocks_catalog /block-collection/columns",
+        "columns": 2,
+        "rows": [
+          {
+            "row": 1,
+            "cells": [
+              "columns-image-text (highlights)"
+            ]
+          },
+          {
+            "row": 2,
+            "cells": [
+              "Image",
+              "H2, paragraphs each starting with a bold title"
+            ]
+          }
+        ]
+      }
+    }
   },
-  "options": [],
+  "options": [
+    {
+      "class": "highlights",
+      "label": "Highlights"
+    }
+  ],
   "memberVariantIds": [],
-  "usage": "Two-column image beside text; image side follows cell order.",
+  "usage": {
+    "description": "Two-column image beside text; image side follows cell order.",
+    "pagesUsing": [
+      {
+        "url": "https://www.avanade.com/en-us",
+        "path": "/en-us"
+      },
+      {
+        "url": "https://www.avanade.com/en-us/services/cloud",
+        "path": "/en-us/services/cloud",
+        "option": "highlights"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-11-12"
+  },
   "reuseGuidance": "Use for alternating image/text feature rows. Section backgrounds (grey, gradient) come from section-metadata.",
   "sourceUrl": "https://www.avanade.com/en-us"
 }

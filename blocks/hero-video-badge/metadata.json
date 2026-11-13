@@ -26,11 +26,57 @@
         ]
       }
     ],
-    "authoring": "Row 1 (optional): background picture. Last row: cell 1 heading/text/CTA; cell 2 badge picture plus a video link (Brightcove/YouTube embed URL) opened in a dialog."
+    "authoring": "Row 1 (optional): background picture. Last row: cell 1 heading/text/CTA; cell 2 badge picture plus a video link (Brightcove/YouTube embed URL) opened in a dialog. Card option: background picture row, then one text cell (H1, paragraph, link); no badge cell. The text sits in a white rounded card at the bottom left.",
+    "options": {
+      "card": {
+        "source": "get_all_blocks_catalog /block-collection/hero",
+        "columns": 1,
+        "rows": [
+          {
+            "row": 1,
+            "cells": [
+              "hero-video-badge (card)"
+            ]
+          },
+          {
+            "row": 2,
+            "cells": [
+              "Background image"
+            ]
+          },
+          {
+            "row": 3,
+            "cells": [
+              "H1, paragraph, CTA link"
+            ]
+          }
+        ]
+      }
+    }
   },
-  "options": [],
+  "options": [
+    {
+      "class": "card",
+      "label": "Card"
+    }
+  ],
   "memberVariantIds": [],
-  "usage": "Homepage hero with background photo, headline, intro, prompt link and a badge image that opens a video in a modal.",
+  "usage": {
+    "description": "Homepage hero with background photo, headline, intro, prompt link and a badge image that opens a video in a modal.",
+    "pagesUsing": [
+      {
+        "url": "https://www.avanade.com/en-us",
+        "path": "/en-us"
+      },
+      {
+        "url": "https://www.avanade.com/en-us/services/cloud",
+        "path": "/en-us/services/cloud",
+        "option": "card"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-11-12"
+  },
   "reuseGuidance": "Use for a top-of-page hero that pairs text with a video-launching badge. Use hero-title-banner for an image-less centered banner.",
   "sourceUrl": "https://www.avanade.com/en-us"
 }

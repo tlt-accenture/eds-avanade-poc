@@ -1,0 +1,51 @@
+{
+  "variantName": "accordion",
+  "baseBlock": "accordion",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": "rc8: Two source sections merged into one white band. Centered gradient H2, then the gradient-pill accordion. New project block, named accordion as directed: gradient pill headers, first item open, Explore button in the panel. The FAQ list is its faq option.\nrc18: Two source sections merged into one white band. Centered gradient H2, then plain FAQ rows. faq option of the new accordion block: plain rows with thin dividers and chevrons instead of gradient pills; Show more clamps long answers in the browser.",
+  "contentPattern": {
+    "source": "get_all_blocks_catalog /block-collection/accordion",
+    "columns": 2,
+    "rows": [
+      {
+        "row": 1,
+        "cells": [
+          "accordion | accordion (faq)"
+        ]
+      },
+      {
+        "row": "2..n (one per item)",
+        "cells": [
+          "Title",
+          "Content: optional subheading, paragraphs, optional link"
+        ]
+      }
+    ],
+    "authoring": "One row per item: cell 1 title; cell 2 content (optional subheading, paragraphs, optional link). Default: gradient pill headers. faq option: plain rows with dividers and chevrons."
+  },
+  "options": [
+    {
+      "class": "faq",
+      "label": "FAQ"
+    }
+  ],
+  "memberVariantIds": [],
+  "usage": {
+    "description": "Expandable items built on native details/summary; first item open.",
+    "pagesUsing": [
+      {
+        "url": "https://www.avanade.com/en-us/services/cloud",
+        "path": "/en-us/services/cloud"
+      },
+      {
+        "url": "https://www.avanade.com/en-us/services/cloud",
+        "path": "/en-us/services/cloud",
+        "option": "faq"
+      }
+    ],
+    "reuseCount": 0,
+    "lastUsed": "2026-11-12"
+  },
+  "reuseGuidance": "Use for capability lists or FAQs that should collapse. Use the faq option for question/answer lists.",
+  "sourceUrl": "https://www.avanade.com/en-us/services/cloud"
+}

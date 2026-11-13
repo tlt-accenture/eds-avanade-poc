@@ -287,6 +287,11 @@ main > .section {
     background-color: var(--color-shaded);
   }
 
+  /* service pages: light grey fading to the page background */
+  &.grey-fade {
+    background-image: linear-gradient(light-dark(var(--avanade-grey-25), #1b1b1b), var(--color-background));
+  }
+
   &.centered > .default-content {
     text-align: center;
   }

@@ -44,6 +44,14 @@ export default function parse(element, { document }) {
     h3.textContent = titleText;
     content.push(h3);
 
+    // "Related links" cards on service pages carry a description; homepage news cards don't
+    card.querySelectorAll('.insight-card__body p').forEach((para) => {
+      if (!para.textContent.trim()) return;
+      const p = document.createElement('p');
+      p.innerHTML = para.innerHTML;
+      content.push(p);
+    });
+
     const link = card.querySelector('a[href]');
     if (link) {
       const a = document.createElement('a');
