@@ -46,8 +46,39 @@
   },
   "options": [
     {
+      "class": "image-left",
+      "label": "Image left",
+      "group": "layout"
+    },
+    {
+      "class": "image-right",
+      "label": "Image right",
+      "group": "layout"
+    },
+    {
+      "class": "stacked",
+      "label": "Stacked",
+      "group": "layout"
+    },
+    {
       "class": "highlights",
-      "label": "Highlights"
+      "label": "Highlights",
+      "group": "layout"
+    },
+    {
+      "class": "dark",
+      "label": "Dark",
+      "group": "theme"
+    },
+    {
+      "class": "light-grey",
+      "label": "Light grey",
+      "group": "theme"
+    },
+    {
+      "class": "gradient",
+      "label": "Gradient",
+      "group": "theme"
     }
   ],
   "memberVariantIds": [],

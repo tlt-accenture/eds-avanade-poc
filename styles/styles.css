@@ -314,6 +314,26 @@ main > .section {
   }
 }
 
+/* block color themes: each block paints --block-surface on its own surface element and sets
+   color-scheme from --block-scheme, so light-dark() text, link and button tokens follow */
+[data-block-name] {
+  &.dark {
+    --block-surface: var(--avanade-charcoal);
+    --block-scheme: dark;
+  }
+
+  &.light-grey {
+    --block-surface: var(--avanade-grey-50);
+    --block-scheme: light;
+  }
+
+  /* darkened 20% so white body text clears 4.5:1 at the orange end (3.2:1 without) */
+  &.gradient {
+    --block-surface: linear-gradient(rgb(0 0 0 / 20%), rgb(0 0 0 / 20%)), var(--gradient-brand);
+    --block-scheme: dark;
+  }
+}
+
 main {
   ul,
   ol {

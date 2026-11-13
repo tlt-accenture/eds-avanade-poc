@@ -415,6 +415,36 @@
           ]
         }
       ]
+    },
+    {
+      "name": "library",
+      "urls": [
+        "https://www.avanade.com/en-us"
+      ],
+      "representativeUrl": "https://www.avanade.com/en-us",
+      "description": "Block styles samples page (/library/block-styles): one real sample of each block the Block styles plugin offers, taken from the homepage",
+      "outputPath": "/library/block-styles",
+      "blocks": [
+        {
+          "name": "columns-image-text",
+          "instances": [
+            ".timage-left-aligned-image-with-logoline"
+          ]
+        },
+        {
+          "name": "hero-title-banner",
+          "instances": [
+            ".title-banner"
+          ]
+        },
+        {
+          "name": "cards-case-study",
+          "instances": [
+            ".featured-content-carousel-with-logoline"
+          ]
+        }
+      ],
+      "sections": []
     }
   ],
   "metadata": {
