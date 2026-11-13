@@ -51,7 +51,28 @@
   "options": [
     {
       "class": "split",
-      "label": "Split"
+      "label": "Split",
+      "group": "layout"
+    },
+    {
+      "class": "left",
+      "label": "Left-aligned",
+      "group": "layout"
+    },
+    {
+      "class": "dark",
+      "label": "Dark",
+      "group": "theme"
+    },
+    {
+      "class": "light-grey",
+      "label": "Light grey",
+      "group": "theme"
+    },
+    {
+      "class": "gradient",
+      "label": "Gradient",
+      "group": "theme"
     }
   ],
   "memberVariantIds": [],

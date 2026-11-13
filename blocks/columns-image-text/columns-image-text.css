@@ -232,3 +232,66 @@
     }
   }
 }
+
+/* color themes: a rounded panel behind each row */
+.columns-image-text:is(.dark, .light-grey, .gradient) {
+  .columns-image-text-row {
+    padding: var(--spacing-l);
+    border-radius: var(--columns-image-text-radius);
+    background: var(--block-surface);
+    color-scheme: var(--block-scheme);
+    color: var(--color-text);
+  }
+}
+
+.columns-image-text:is(.dark, .gradient) .columns-image-text-text h2 {
+  background-image: none;
+  -webkit-text-fill-color: currentcolor;
+}
+
+/* gradient text would vanish on the gradient panel */
+.columns-image-text.gradient p > a:only-child:not(.btn):hover {
+  background-image: none;
+  -webkit-text-fill-color: currentcolor;
+  text-decoration: underline;
+
+  &::after {
+    background-image: none;
+  }
+}
+
+@media (width >= 900px) {
+  .columns-image-text:is(.dark, .light-grey, .gradient) {
+    --columns-image-text-gap: 64px;
+    --columns-image-text-image-height: 560px;
+
+    .columns-image-text-row {
+      padding: 40px;
+    }
+  }
+
+  /* image side, whatever order the cells were typed in */
+  .columns-image-text.image-left .columns-image-text-row .columns-image-text-image {
+    order: -1;
+  }
+
+  .columns-image-text.image-right .columns-image-text-row .columns-image-text-image {
+    order: 1;
+  }
+
+  /* stacked: image above the text at every width */
+  .columns-image-text.stacked {
+    --columns-image-text-image-height: 480px;
+
+    .columns-image-text-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 40px;
+    }
+
+    .columns-image-text-image {
+      flex: none;
+      order: -1;
+    }
+  }
+}

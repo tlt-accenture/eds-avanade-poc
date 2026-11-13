@@ -137,3 +137,67 @@
     }
   }
 }
+
+/* left: stacked and left-aligned, on the content width */
+.hero-title-banner.left {
+  --hero-title-banner-max-width: 1128px;
+
+  text-align: start;
+
+  .hero-title-banner-content > div {
+    align-items: flex-start;
+  }
+}
+
+/* color themes and a background picture both turn the banner into a padded, rounded panel */
+.hero-title-banner:is(.dark, .light-grey, .gradient),
+.hero-title-banner:has(> .hero-title-banner-background) {
+  --hero-title-banner-radius: 30px;
+
+  isolation: isolate;
+  overflow: hidden;
+  padding: 40px var(--spacing-l);
+  border-radius: var(--hero-title-banner-radius);
+  color: var(--color-text);
+}
+
+.hero-title-banner:is(.dark, .light-grey, .gradient) {
+  background: var(--block-surface);
+  color-scheme: var(--block-scheme);
+}
+
+/* text over a photo: white on a dark scrim, whatever the theme */
+.hero-title-banner:has(> .hero-title-banner-background) {
+  color-scheme: dark;
+
+  .hero-title-banner-background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 50%);
+  }
+}
+
+.hero-title-banner:is(.dark, .gradient, :has(> .hero-title-banner-background)) {
+  h2 {
+    background-image: none;
+    -webkit-text-fill-color: currentcolor;
+  }
+
+  p > a:only-child:not(.btn):hover {
+    background-image: none;
+    -webkit-text-fill-color: currentcolor;
+    text-decoration: underline;
+
+    &::after {
+      background-image: none;
+    }
+  }
+}
+
+@media (width >= 900px) {
+  .hero-title-banner:is(.dark, .light-grey, .gradient),
+  .hero-title-banner:has(> .hero-title-banner-background) {
+    padding: 80px 64px;
+  }
+}

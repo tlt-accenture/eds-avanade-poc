@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--avanade-charcoal);
+}
+
+.block-styles {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+
+  h1 {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  form {
+    display: grid;
+    gap: 12px;
+  }
+
+  fieldset {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  legend {
+    margin-bottom: 6px;
+    padding: 0;
+    font-weight: 700;
+  }
+
+  /* each choice is a pill; the radio stays focusable and announced */
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    cursor: pointer;
+
+    &:has(:checked) {
+      border-color: var(--avanade-magenta);
+      background: rgb(206 5 105 / 8%);
+    }
+
+    &:has(:focus-visible) {
+      outline: 2px solid var(--avanade-magenta);
+      outline-offset: 2px;
+    }
+  }
+
+  input {
+    margin: 0;
+    accent-color: var(--avanade-magenta);
+  }
+}
+
+.block-styles-preview {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+
+  iframe {
+    display: block;
+    border: 0;
+    transform-origin: 0 0;
+  }
+}
+
+.block-styles-header-label {
+  margin: 0;
+  font-weight: 700;
+}
+
+.block-styles-header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  code {
+    flex: 1;
+    padding: 6px 8px;
+    border-radius: 4px;
+    background: var(--avanade-grey-50);
+    overflow-wrap: anywhere;
+  }
+}
+
+.block-styles-hint,
+.block-styles-status {
+  margin: 0;
+  color: #636363;
+}
+
+.block-styles button {
+  padding: 8px 16px;
+  border: 1px solid var(--avanade-charcoal);
+  border-radius: 20px;
+  background: #fff;
+  color: var(--avanade-charcoal);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--avanade-magenta);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.block-styles .block-styles-insert {
+  justify-self: start;
+  background: var(--avanade-charcoal);
+  color: #fff;
+}

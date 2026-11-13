@@ -256,3 +256,43 @@
     }
   }
 }
+
+/* color themes paint each card; after the text option so its light cards can be themed too */
+.cards-case-study:is(.dark, .light-grey, .gradient) .cards-case-study-card {
+  --cards-case-study-bg: var(--block-surface);
+
+  color-scheme: var(--block-scheme);
+  filter: none;
+}
+
+/* logo artwork is drawn for light backgrounds: keep it on a white tile */
+.cards-case-study:is(.dark, .gradient) .cards-case-study-logo img {
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: var(--avanade-white);
+}
+
+/* gradient text would vanish on a gradient card */
+.cards-case-study.gradient .cards-case-study-cta a:hover {
+  background-image: none;
+  -webkit-text-fill-color: currentcolor;
+  text-decoration: underline;
+
+  &::after {
+    background-image: none;
+  }
+}
+
+@media (width >= 900px) {
+  .cards-case-study.cols-2 ul {
+    grid-template-columns: repeat(2, minmax(0, 552px));
+  }
+
+  .cards-case-study.cols-4 {
+    --cards-case-study-image-height: 200px;
+
+    ul {
+      grid-template-columns: repeat(4, minmax(0, 264px));
+    }
+  }
+}

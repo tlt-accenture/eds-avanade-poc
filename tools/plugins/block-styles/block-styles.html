@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Block styles</title>
+    <link rel="icon" href="data:,"/>
+    <link rel="stylesheet" href="/styles/brand.css"/>
+    <link rel="stylesheet" href="./block-styles.css"/>
+    <script src="https://da.live/nx/utils/sdk.js" type="module"></script>
+    <script src="./block-styles.js" type="module"></script>
+  </head>
+  <body>
+    <main class="block-styles">
+      <h1>Block styles</h1>
+      <form>
+        <fieldset data-group="block"><legend>Block</legend></fieldset>
+        <fieldset data-group="layout"><legend>Layout</legend></fieldset>
+        <fieldset data-group="theme"><legend>Color theme</legend></fieldset>
+        <fieldset data-group="width" class="block-styles-width">
+          <legend>Preview width</legend>
+          <label><input type="radio" name="width" value="1280" checked/> Desktop</label>
+          <label><input type="radio" name="width" value="375"/> Phone</label>
+        </fieldset>
+      </form>
+      <div class="block-styles-preview">
+        <iframe title="Preview of the selected block style" src="about:blank" tabindex="-1"></iframe>
+      </div>
+      <p class="block-styles-header-label" id="header-label">Block header</p>
+      <div class="block-styles-header">
+        <code aria-labelledby="header-label"></code>
+        <button type="button" data-action="copy">Copy</button>
+      </div>
+      <p class="block-styles-hint">To restyle a block already on the page, change its header to this text.</p>
+      <button type="button" data-action="insert" class="block-styles-insert">Insert block</button>
+      <p class="block-styles-status" role="status"></p>
+    </main>
+  </body>
+</html>
