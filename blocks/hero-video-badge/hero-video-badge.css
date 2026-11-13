@@ -230,3 +230,110 @@
     }
   }
 }
+
+/* card: photo above a white rounded card; from 900px the card sits on the photo, bottom left */
+.hero-video-badge.card {
+  --hero-video-badge-card-media-height: 160px;
+
+  max-width: 1728px;
+  margin-inline: auto;
+  padding-block: 0;
+  text-align: start;
+
+  .hero-video-badge-background {
+    position: static;
+    height: var(--hero-video-badge-card-media-height);
+  }
+
+  .hero-video-badge-foreground {
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero-video-badge-text {
+    padding: var(--spacing-l) var(--spacing-l) 40px;
+    border-radius: var(--hero-video-badge-radius);
+    background: var(--avanade-white);
+    color: var(--color-dark);
+  }
+
+  h1 {
+    font-size: 42px;
+    line-height: 52px;
+  }
+
+  .hero-video-badge-text p {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .hero-video-badge-text a {
+    display: inline-flex;
+    max-width: none;
+    margin-inline: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-dark);
+    font-size: var(--body-font-size-m);
+    font-weight: var(--link-cta-font-weight);
+
+    &::before {
+      content: none;
+    }
+
+    &::after {
+      content: '';
+      flex: none;
+      width: 24px;
+      height: 24px;
+      background-color: currentcolor;
+      mask: var(--icon-arrow-right) center / contain no-repeat;
+    }
+
+    &:hover {
+      color: var(--color-link-hover);
+    }
+  }
+}
+
+@media (width >= 600px) {
+  .hero-video-badge.card {
+    --hero-video-badge-card-media-height: 329px;
+
+    h1 {
+      font-size: 52px;
+      line-height: 60px;
+    }
+  }
+}
+
+@media (width >= 900px) {
+  .hero-video-badge.card {
+    min-height: 740px;
+
+    .hero-video-badge-background {
+      position: absolute;
+      height: auto;
+    }
+
+    .hero-video-badge-foreground {
+      grid-template-columns: none;
+      align-self: end;
+      padding: 0 0 54px 72px;
+    }
+
+    .hero-video-badge-text {
+      justify-self: start;
+      width: 684px;
+      padding: 40px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 64px;
+      line-height: 72px;
+    }
+  }
+}

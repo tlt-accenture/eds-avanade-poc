@@ -199,6 +199,222 @@
           ]
         }
       ]
+    },
+    {
+      "name": "service",
+      "urls": [
+        "https://www.avanade.com/en-us/services/cloud"
+      ],
+      "representativeUrl": "https://www.avanade.com/en-us/services/cloud",
+      "description": "Avanade service pages (Services menu): hero card, jump links, intro, highlights, capabilities accordion, client stories, contact, FAQs",
+      "blocks": [
+        {
+          "name": "hero-video-badge-card",
+          "instances": [
+            ".full-bleed-hero"
+          ]
+        },
+        {
+          "name": "jump-links",
+          "instances": [
+            ".jump-links"
+          ]
+        },
+        {
+          "name": "hero-title-banner-split",
+          "instances": [
+            ".title-banner"
+          ]
+        },
+        {
+          "name": "columns-image-text-highlights",
+          "instances": [
+            ".timage-left-aligned-image-with-logoline"
+          ]
+        },
+        {
+          "name": "cards-case-study-text",
+          "instances": [
+            ".featured-content-carousel-with-logoline"
+          ]
+        },
+        {
+          "name": "accordion",
+          "instances": [
+            ".gradient-simple-accordion"
+          ]
+        },
+        {
+          "name": "quote-carousel",
+          "instances": [
+            ".evidence"
+          ]
+        },
+        {
+          "name": "contact",
+          "instances": [
+            "#content > section.contact-expert"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            ".accordion:not(.gradient-simple-accordion .accordion)"
+          ]
+        },
+        {
+          "name": "cards-news",
+          "instances": [
+            ".cards--default"
+          ]
+        }
+      ],
+      "urlPattern": "/en-us/services/*",
+      "sections": [
+        {
+          "id": "rc2",
+          "name": "Hero",
+          "selector": [
+            "#content > section:has(.full-bleed-hero)"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-video-badge-card"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc3",
+          "name": "Jump links",
+          "selector": [
+            "#content > section:has(.jump-links)"
+          ],
+          "style": null,
+          "blocks": [
+            "jump-links"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc4",
+          "name": "Our approach",
+          "selector": [
+            "#content > section:has(.title-banner)"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-title-banner-split"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc6",
+          "name": "Image + highlights",
+          "selector": [
+            "#content > section:has(.timage-left-aligned-image-with-logoline)"
+          ],
+          "style": "grey-fade",
+          "blocks": [
+            "columns-image-text-highlights"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc7",
+          "name": "What you can achieve",
+          "selector": [
+            "#content > section:has(.featured-content-carousel-with-logoline):has(~ section .gradient-simple-accordion)"
+          ],
+          "style": "pink-gradient, centered",
+          "blocks": [
+            "cards-case-study-text"
+          ],
+          "defaultContent": [
+            ".featured-content-carousel-with-logoline__heading"
+          ]
+        },
+        {
+          "id": "rc8",
+          "name": "Capabilities",
+          "selector": [
+            "#content > section:has(.title-reusable):has(+ section .gradient-simple-accordion)",
+            "#content > section:has(.title-reusable):has(.gradient-simple-accordion)"
+          ],
+          "style": "centered",
+          "blocks": [
+            "accordion"
+          ],
+          "defaultContent": [
+            ".title-reusable"
+          ]
+        },
+        {
+          "id": "rc11",
+          "name": "Quote",
+          "selector": [
+            "#content > section:has(.evidence)"
+          ],
+          "style": "grey-fade",
+          "blocks": [
+            "quote-carousel"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc13",
+          "name": "Client stories",
+          "selector": [
+            "#content > section:has(.featured-content-carousel-with-logoline):not(:has(~ section .gradient-simple-accordion))"
+          ],
+          "style": "pink-gradient, centered",
+          "blocks": [
+            "cards-case-study-text"
+          ],
+          "defaultContent": [
+            ".featured-content-carousel-with-logoline__heading"
+          ]
+        },
+        {
+          "id": "rc15",
+          "name": "Related links",
+          "selector": [
+            "#content > section:has(.cards--default)"
+          ],
+          "style": "centered",
+          "blocks": [
+            "cards-news"
+          ],
+          "defaultContent": [
+            ".cards--default__title"
+          ]
+        },
+        {
+          "id": "rc16",
+          "name": "Contact",
+          "selector": [
+            "#content > section.contact-expert"
+          ],
+          "style": "grey-fade",
+          "blocks": [
+            "contact"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc18",
+          "name": "FAQs",
+          "selector": [
+            "#content > section:has(.title-reusable):has(+ section .accordion:not(.gradient-simple-accordion .accordion))"
+          ],
+          "style": "centered",
+          "blocks": [
+            "accordion-faq"
+          ],
+          "defaultContent": [
+            ".title-reusable"
+          ]
+        }
+      ]
     }
   ],
   "metadata": {

@@ -95,7 +95,12 @@ export default async function init(section) {
     container,
     layout,
     background,
+    id,
   } = section.dataset;
+  if (id) {
+    section.id = id;
+    delete section.dataset.id;
+  }
   if (grid) handleLayout(grid, section, 'grid');
   if (gap) handleLayout(gap, section, 'gap');
   if (spacing) handleLayout(spacing, section, 'spacing');

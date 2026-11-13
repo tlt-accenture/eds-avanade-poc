@@ -26,11 +26,51 @@
         "Title, description, CTA link"
       ]
     },
-    "authoring": "One row per card: cell 1 photo; cell 2 logo picture (optional, first paragraph), client name heading, description, link as last paragraph."
+    "authoring": "One row per card: cell 1 photo; cell 2 logo picture (optional, first paragraph), client name heading, description, link as last paragraph. Text option: one cell per row (heading, paragraph, optional link as last paragraph). White rounded cards in a scroll-snap row with prev/next buttons while the row overflows.",
+    "options": {
+      "text": {
+        "source": "get_all_blocks_catalog /block-collection/cards (no images form)",
+        "columns": 1,
+        "rows": [
+          {
+            "row": 1,
+            "cells": [
+              "cards-case-study (text)"
+            ]
+          },
+          {
+            "row": "2..n (one per card)",
+            "cells": [
+              "H5 title, paragraph, optional CTA link"
+            ]
+          }
+        ]
+      }
+    }
   },
-  "options": [],
+  "options": [
+    {
+      "class": "text",
+      "label": "Text"
+    }
+  ],
   "memberVariantIds": [],
-  "usage": "Grid of client story cards: photo, client logo, name, description and Read more link.",
+  "usage": {
+    "description": "Grid of client story cards: photo, client logo, name, description and Read more link.",
+    "pagesUsing": [
+      {
+        "url": "https://www.avanade.com/en-us",
+        "path": "/en-us"
+      },
+      {
+        "url": "https://www.avanade.com/en-us/services/cloud",
+        "path": "/en-us/services/cloud",
+        "option": "text"
+      }
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-11-12"
+  },
   "reuseGuidance": "Use for client stories / case studies that link to detail pages.",
   "sourceUrl": "https://www.avanade.com/en-us"
 }

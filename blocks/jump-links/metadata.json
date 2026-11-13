@@ -1,0 +1,40 @@
+{
+  "variantName": "jump-links",
+  "baseBlock": "custom",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": "rc3: White bar, 6 centered links with vertical separators, gradient underline on the active link, sticky under the header. New custom block (no library equivalent): in-page anchor bar, sticky under the header, scroll-spy underline.",
+  "contentPattern": {
+    "source": "custom (no library equivalent)",
+    "columns": 1,
+    "rows": [
+      {
+        "row": 1,
+        "cells": [
+          "jump-links"
+        ]
+      },
+      {
+        "row": 2,
+        "cells": [
+          "Unordered list of anchor links (#our-approach ...)"
+        ]
+      }
+    ],
+    "authoring": "One row, one cell: a bulleted list of links to in-page anchors (#our-approach ...). Each target section sets the same id in section metadata (key id). Put the block in its own section: that section becomes sticky under the header."
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": {
+    "description": "Sticky in-page anchor bar under the hero; marks the link for the section in view.",
+    "pagesUsing": [
+      {
+        "url": "https://www.avanade.com/en-us/services/cloud",
+        "path": "/en-us/services/cloud"
+      }
+    ],
+    "reuseCount": 0,
+    "lastUsed": "2026-11-12"
+  },
+  "reuseGuidance": "Use on long pages that need an on-page table of contents. Not for site navigation.",
+  "sourceUrl": "https://www.avanade.com/en-us/services/cloud"
+}

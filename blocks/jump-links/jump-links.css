@@ -1,0 +1,91 @@
+/* the section is the sticky box: a sticky block would stop at its own section's end */
+main > .section:has(> .block-content > .jump-links) {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 10;
+  background: var(--color-background);
+
+  &.stuck {
+    box-shadow: rgb(0 0 0 / 5%) 0 10px 20px 5px;
+  }
+}
+
+/* land anchor targets below the bar; the block measures it */
+main > .section[id] {
+  scroll-margin-top: var(--jump-links-height, 0);
+}
+
+.jump-links {
+  max-width: var(--grid-container-width);
+  margin-inline: auto;
+
+  /* one row that scrolls sideways on small screens, so the stuck bar stays short */
+  .jump-links-list {
+    display: flex;
+    margin: 0;
+    padding: 0 0 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    list-style: none;
+  }
+
+  li {
+    position: relative;
+    flex: none;
+    height: 32px;
+    margin: 0;
+
+    &:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 32px;
+      background: #ccc;
+    }
+  }
+
+  .jump-links-link {
+    position: relative;
+    margin: 0 24px;
+    color: var(--color-text);
+    font-weight: var(--link-cta-font-weight);
+    text-decoration: none;
+
+    &[aria-current]::before {
+      content: "";
+      position: absolute;
+      inset-inline: 0;
+      bottom: -8px;
+      height: 4px;
+      background: var(--gradient-brand);
+    }
+  }
+
+  li:first-child .jump-links-link {
+    margin-left: 0;
+  }
+
+  li:last-child .jump-links-link {
+    margin-right: 0;
+  }
+}
+
+@media (width >= 900px) {
+  .jump-links {
+    .jump-links-list {
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 16px;
+      padding: 0;
+      overflow-x: visible;
+    }
+
+    .jump-links-link:not([aria-current]):hover {
+      background: var(--gradient-brand);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}

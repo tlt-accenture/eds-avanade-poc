@@ -1,0 +1,40 @@
+{
+  "variantName": "quote-carousel",
+  "baseBlock": "carousel",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": "rc11: Light grey vertical gradient (#f5f7fa to white). Single slide on this page. New block as directed: text-only quote slides (quote mark, bold quotation, rule + attribution). Hide controls when there is one slide, as on this page.",
+  "contentPattern": {
+    "source": "get_all_blocks_catalog /block-collection/carousel (text-only slides)",
+    "columns": 1,
+    "rows": [
+      {
+        "row": 1,
+        "cells": [
+          "quote-carousel"
+        ]
+      },
+      {
+        "row": "2..n (one per slide)",
+        "cells": [
+          "Quotation paragraph, attribution paragraph"
+        ]
+      }
+    ],
+    "authoring": "One row per slide, one cell: quotation paragraph(s), then the attribution as the last paragraph."
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": {
+    "description": "Text-only quote slides with attribution; prev/next and dots only when there is more than one slide; no autoplay.",
+    "pagesUsing": [
+      {
+        "url": "https://www.avanade.com/en-us/services/cloud",
+        "path": "/en-us/services/cloud"
+      }
+    ],
+    "reuseCount": 0,
+    "lastUsed": "2026-11-12"
+  },
+  "reuseGuidance": "Use for client or executive quotes. Use carousel-promo for image slides.",
+  "sourceUrl": "https://www.avanade.com/en-us/services/cloud"
+}

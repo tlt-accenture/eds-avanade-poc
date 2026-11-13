@@ -6,11 +6,13 @@ Custom **hero** block. Purpose: Image-less centered title banner: heading, parag
 
 Model: `standalone`
 
-Single block table. Content: Optional background picture row, then one row with heading, paragraph and CTA link.
+Single block table. Content: Optional background picture row, then one row with heading, paragraph and CTA link. Split option: one content cell with a heading and paragraphs; the heading renders left and everything after it right from 1200px, stacked and left-aligned from 900px, stacked and centered below that.
 
 ## Supported variations
 
-No variations.
+| Variation | Option class |
+| --- | --- |
+| Split | `split` |
 
 ## Universal Editor fields
 
