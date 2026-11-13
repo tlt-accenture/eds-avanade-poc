@@ -263,6 +263,11 @@ main > .section {
 
   padding-block: var(--top-bottom-spacing);
 
+  /* the last section is left empty once its metadata block moves to <head> */
+  &:empty {
+    display: none;
+  }
+
   > .default-content:not(:last-child) {
     margin-bottom: var(--spacing-section, 0);
   }
