@@ -1,7 +1,7 @@
 # Block style plugin
 
 Date: 2026-11-13
-Status: in progress (step 1 of the plan built locally)
+Status: implemented (2026-11-13; insert verified with a stand-in for the DA SDK, a real author insert in the editor still to be confirmed)
 
 ## Problem
 
