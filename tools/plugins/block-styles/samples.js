@@ -8,7 +8,11 @@ export const BLOCKS = [
 
 // the local preview serves pages under /content
 const local = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-export const SAMPLES_URL = new URL(`${local ? '/content' : ''}/library/block-styles.plain.html`, window.location.origin).href;
+const LIBRARY = new URL(`${local ? '/content' : ''}/library/`, window.location.origin);
+export const SAMPLES_URL = new URL('block-styles.plain.html', LIBRARY).href;
+// the DA sheet authors edit, one row per variation:
+// block, group (layout or theme), class, label, keywords, description
+export const OPTIONS_URL = new URL('block-style-options.json', LIBRARY).href;
 
 const absolute = (url) => new URL(url, SAMPLES_URL).href;
 const absoluteSrcset = (set) => set.split(',').map((entry) => {
@@ -28,18 +32,40 @@ export function loadSamples() {
   return samples;
 }
 
-// layouts and themes come from each block's metadata.json, the same list its README documents
+const KEBAB = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+const GROUPS = ['layout', 'theme'];
+const text = (value) => String(value ?? '').trim();
+
+// a published DA sheet is { data: [...] }; a workbook keeps each sheet under its name
+const sheetRows = (json) => json.data ?? json[json[':names']?.[0]]?.data ?? [];
+
+let sheet;
+const loadSheet = () => {
+  sheet ??= fetch(OPTIONS_URL)
+    .then((resp) => (resp.ok ? resp.json() : null))
+    .then((json) => json && sheetRows(json))
+    .catch(() => null);
+  return sheet;
+};
+
+// the sheet authors maintain; until it exists, each block's own metadata.json list
 const options = {};
 export function loadOptions(name) {
-  options[name] ??= fetch(`/blocks/${name}/metadata.json`)
-    .then((resp) => (resp.ok ? resp.json() : { options: [] }))
-    .then(({ options: list = [] }) => ({
-      layout: [
-        ...list.filter((o) => o.group === 'layout'),
-        ...(BLOCKS.find((b) => b.name === name)?.shapes || []),
-      ],
+  options[name] ??= loadSheet().then(async (rows) => {
+    if (rows) {
+      const list = rows
+        .map((row) => Object.fromEntries(Object.entries(row).map(([k, v]) => [k, text(v)])))
+        .filter((row) => row.block === name && KEBAB.test(row.class) && GROUPS.includes(row.group));
+      return { source: 'sheet', ...Object.fromEntries(GROUPS.map((g) => [g, list.filter((o) => o.group === g)])) };
+    }
+    const meta = await fetch(`/blocks/${name}/metadata.json`).then((resp) => (resp.ok ? resp.json() : {}));
+    const list = meta.options || [];
+    return {
+      source: 'built-in',
+      layout: [...list.filter((o) => o.group === 'layout'), ...(BLOCKS.find((b) => b.name === name)?.shapes || [])],
       theme: list.filter((o) => o.group === 'theme'),
-    }));
+    };
+  });
   return options[name];
 }
 
