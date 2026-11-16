@@ -86,10 +86,51 @@ restyle an existing block by pasting the header text over its header.
 | Where | What |
 |---|---|
 | PR #8 (merged) | Variations, shared themes, the plugin, the samples import, the design spec |
+| PR #10 (merged) | Plugin update: search, scrolling list, variations from a DA sheet (see section 8) |
 | Document Authoring | `/library/block-styles` samples page (previewed, not published live) |
+| Document Authoring | `/library/block-style-options` sheet, the variation list authors maintain (previewed, not published live) |
 | DA site settings | A 5th library entry, **Block styles**, pointing at the plugin on `main`; the other 4 entries unchanged |
 | Live | Homepage and service pages unchanged; the new options are available to authors |
 | btf-eds | Nothing from this work went there |
+
+## 8. Update (2026-11-16): search and a DA-maintained style list
+
+A "what if" exercise: a client has 30 style variations for one block and wants to type into a search
+field to filter them. The current blocks have only a few variations, so this plugin is the test bed.
+
+**Decisions:**
+
+| Question | Choice | Why |
+|---|---|---|
+| One search bar, or one per group? | One bar for layouts and themes | Authors don't need to know which group a word belongs to, and one search can narrow both ("dark 2 per row") |
+| Pill buttons or a list? | A scrolling list | 30 pills crowd a narrow panel; rows with a one-line description scan better and scroll |
+| Who maintains the variations? | A DA spreadsheet | Authors add, rename, reorder and describe entries without a developer |
+
+Like a store's website: one search box, results sorted under their departments, and a product list
+the shop staff can update themselves.
+
+**What changed:**
+
+- **The sheet** `/library/block-style-options` has one row per variation: `block`, `group` (layout or
+  theme), `class` (the option word in the block header), `label`, `keywords` and `description`. It
+  started with the 19 existing variations and starting keywords (e.g. "photo" for "With background
+  image").
+- **Search** narrows each group by the words that mean something in it, and keeps the current pick in
+  view (marked "current pick"). Per-group counts ("1 of 4"), an announced total, "No … match"
+  messages, and Escape or × to clear.
+- **The list** shows each choice as a row with its name and description; long groups scroll.
+- **Safety:** rows with an unknown group or a malformed option word are skipped, so an authoring typo
+  can't break the panel; without the sheet the panel falls back to the blocks' built-in lists.
+- **The plugin's README** documents the sheet's columns.
+
+**How authors change the list now:** edit `library/block-style-options` in DA, then preview it; the
+panel shows the change the next time it opens. A brand-new style still needs a developer to add its
+CSS first, because the sheet only controls the list (like rewriting the specials board: new names any
+day, but a new dish still needs the kitchen).
+
+**Checks:** search for single words, several words, keywords and no matches; clearing; a renamed entry
+("Night mode", found by the new keyword "midnight"); a row with a typo (skipped); no sheet (built-in
+list); and the live panel on `main` reading the real previewed sheet. Page-speed check 100.
 
 ## Not done in step 3
 
