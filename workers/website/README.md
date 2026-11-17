@@ -11,6 +11,7 @@ passes through it on the way to `main--eds-avanade-poc--tlt-accenture.aem.live`.
 | A page the site doesn't have yet (404) | `302` to the same path and query on `FALLBACK_ORIGIN` (www.avanade.com), so unmigrated links keep working; it stops by itself once the page is migrated |
 | `/` | `302` to `HOME_PATH` (`/en-us`) |
 | `/library/...`, `/drafts/...` | `404`: author-only content |
+| `/geo.json` | The visitor's `country`, `region`, `regionCode`, `city` and `timezone` from Cloudflare, never cached. Pages on the site's own `aem.page` / `aem.live` addresses and `localhost:3000` may read it cross-origin. Used by the office-hours banner (`docs/specs/005-office-hours-banner`) |
 | Code, fragments, data files, media | Passed through; a missing file stays a `404` (only pages fall back) |
 
 Search engines are asked not to index anything (`x-robots-tag: noindex, nofollow`) unless

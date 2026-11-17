@@ -12,6 +12,7 @@
 
 import { fetchSchedule, fetchFromAem, fetchPage } from './handlers/aem.js';
 import fetchDaSc from './handlers/dasc.js';
+import fetchGeo from './handlers/geo.js';
 
 const notFound = (message) => new Response(message, { status: 404 });
 
@@ -22,6 +23,11 @@ const getExtension = (path) => {
 };
 
 const ROUTES = [
+  // The visitor's coarse location, for the office-hours banner
+  {
+    match: (path) => path === '/geo.json',
+    handler: fetchGeo,
+  },
   // Handle schedule manifests
   {
     match: (path) => path.includes('/schedules/') && path.endsWith('json'),
@@ -138,6 +144,9 @@ export default {
 
     const { handler, cache } = ROUTES.find((route) => route.match(url.pathname));
 
-    return handler({ url, env, request, cache, savedSearch });
+    // request.cf (the visitor's location) lives on the incoming request only
+    return handler({
+      url, env, request, cache, savedSearch, cf: req.cf,
+    });
   },
 };
