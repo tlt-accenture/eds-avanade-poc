@@ -1,9 +1,14 @@
-name = "ak-website"
+name = "eds-avanade-poc"
 main = "index.js"
 compatibility_date = "2025-02-14"
 keep_vars = true
 
-vars = { AEM_ORG = "aemsites", AEM_SITE = "author-kit" }
+# AEM_ORG / AEM_SITE: the Edge Delivery site this worker fronts.
+# FALLBACK_ORIGIN: where pages not migrated yet are sent (same path).
+# HOME_PATH: where the site root goes; the homepage is localized.
+# PUSH_INVALIDATION: off until a production CDN is configured for the site.
+# ALLOW_INDEXING: "true" only when this domain should be in search results.
+vars = { AEM_ORG = "tlt-accenture", AEM_SITE = "eds-avanade-poc", FALLBACK_ORIGIN = "https://www.avanade.com", HOME_PATH = "/en-us", PUSH_INVALIDATION = "disabled", ALLOW_INDEXING = "false" }
 
 [env.dev]
-vars = { AEM_ORG = "aemsites", AEM_SITE = "author-kit" }
+vars = { AEM_ORG = "tlt-accenture", AEM_SITE = "eds-avanade-poc", FALLBACK_ORIGIN = "https://www.avanade.com", HOME_PATH = "/en-us", PUSH_INVALIDATION = "disabled", ALLOW_INDEXING = "false" }
