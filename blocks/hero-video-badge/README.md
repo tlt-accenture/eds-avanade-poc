@@ -14,6 +14,14 @@ Single block table. Content: Row 1 (optional): background picture. Last row: cel
 | --- | --- |
 | Card | `card` |
 
+## Campaigns
+
+On the localized homepage (not the `card` option), a link such as `/en-us?utm_campaign=ai` replaces
+the heading, the intro paragraph and the button's label and link with the `ai` row of the DA sheet
+`/fragments/campaigns/homepage` (columns `campaign`, `heading`, `text`, `link-label`, `link`). The
+campaign is kept for the visit; `?utm_campaign=none` forgets it. Add a campaign by adding a row and
+publishing the sheet. See `docs/specs/006-campaign-homepage`.
+
 ## Universal Editor fields
 
 N/A (Document Authoring project)
