@@ -28,7 +28,7 @@ const linkBlocks = [
 ];
 
 // Blocks with self-managed styles
-const components = ['fragment', 'schedule'];
+const components = ['fragment', 'schedule', 'library-metadata'];
 
 // The local workspace preview (pages under /content) serves authored HTML as-is. Edge Delivery
 // converts section-metadata tables and :icon: tokens server-side; mirror that in the preview only.
