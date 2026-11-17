@@ -191,14 +191,19 @@ the background banner has its photo and overlay). The copies in DA match the loc
 all were previewed. Sample pages on `main`: 4 error boxes each before PR #16, none after. Page-speed
 check 100.
 
+**Author test in the editor (2026-11-17):** Library → Blocks lists the 14 blocks, and an inserted entry
+arrives with its content and renders in its layout on preview. At first the editor still showed the old
+list: Document Authoring doesn't tell browsers how long to keep the list, so a browser that read it
+recently may reuse its saved copy for a few hours. Clearing the browser's cached files showed the new
+list. If authors keep seeing an old list after a change, a version number on the list's address in the
+site settings (`blocks.json?v=2`) makes every browser fetch it fresh.
+
 ## Not done in step 3
 
 - **Restyling an existing block from the plugin** isn't possible with DA's plugin toolkit; the panel
   offers the header to copy instead.
 - **A real author insert in the DA editor** is still to be tried by an author (it was verified with a
   stand-in for the editor's toolkit).
-- **The block library in the editor** is still to be checked by an author (opening it needs a DA
-  login): Library → Blocks should list the 14 blocks, and an entry should insert with its content.
 - **The `pink-gradient` section style** still uses the original, brighter gradient (3.2:1 for small
   white text at the orange end). Darkening it would change live pages and is a separate decision.
 
