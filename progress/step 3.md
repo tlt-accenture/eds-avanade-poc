@@ -87,6 +87,8 @@ restyle an existing block by pasting the header text over its header.
 |---|---|
 | PR #8 (merged) | Variations, shared themes, the plugin, the samples import, the design spec |
 | PR #10 (merged) | Plugin update: search, scrolling list, variations from a DA sheet (see section 8) |
+| PR #16 (merged) | Block library: hides the samples' labels on rendered pages (see section 9) |
+| Document Authoring | `docs/library/blocks.json` and 13 sample pages under `docs/library/blocks/`, the Avanade block library (previewed, not published live; see section 9) |
 | Document Authoring | `/library/block-styles` samples page (previewed, not published live) |
 | Document Authoring | `/library/block-style-options` sheet, the variation list authors maintain (previewed, not published live) |
 | DA site settings | A 5th library entry, **Block styles**, pointing at the plugin on `main`; the other 4 entries unchanged |
@@ -132,12 +134,71 @@ day, but a new dish still needs the kitchen).
 ("Night mode", found by the new keyword "midnight"); a row with a typo (skipped); no sheet (built-in
 list); and the live panel on `main` reading the real previewed sheet. Page-speed check 100.
 
+## 9. Update (2026-11-17): the Avanade blocks in the block library
+
+The DA editor's **Library → Blocks** panel still listed only Author Kit's starter blocks, and its
+section styles were Author Kit's (container, center, adobe-red…). None of the 11 Avanade blocks built in
+steps 1–3 were in it, so an author had to copy a block from another page or type its table by hand.
+
+Now an author opens the library, clicks e.g. **Accordion (FAQ)**, and a ready-made block with sample
+content drops into the page. Like a pantry of meal kits instead of a recipe book.
+
+**Decisions:**
+
+| Question | Choice | Why |
+|---|---|---|
+| How many entries? | One per layout | Showing every layout in every theme would add 30+ near-identical entries; themes are described in each entry and mixed in the Block styles panel |
+| Author Kit's starter blocks | Hero, Card and Columns no longer listed; Table, Section Metadata and Metadata kept | Two different "heroes" would confuse authors; existing pages aren't affected |
+| Section styles | Avanade's four: light-grey, pink-gradient, centered, grey-fade | The list should match what the site actually styles |
+
+**What's in it: 14 blocks, 27 entries.**
+
+| Library block | Entries |
+|---|---|
+| Accordion | Default, FAQ |
+| Case study cards | Image cards, Text, 2 per row, 4 per row |
+| Contact | Default |
+| Homepage hero | Default, Card |
+| Image and text columns | Image left, Image right, Stacked, Highlights |
+| Jump links | Default |
+| Metadata | Page title and description |
+| News cards | Default |
+| Promo carousel | Default |
+| Quote carousel | Default |
+| Section Metadata | Avanade section style and id |
+| Stats cards | Default |
+| Table | Kept from Author Kit |
+| Title banner | Centered, Split, Left, With background image |
+
+- **Where it lives in DA:** `docs/library/blocks.json` is the list, with the section style values in
+  its `options` sheet. Each block has a sample page under `docs/library/blocks/`, one section per entry.
+  The editor's settings already pointed at this list, so they didn't change.
+- **Real content:** copied from the homepage and the Cloud page, cut down to 2–4 items. Every Services
+  page has a single quote, so the quote carousel sample combines the Cloud, Security and Experiences
+  quotes. The homepage has only three image case studies, so the "4 per row" sample repeats the first
+  one.
+- **Names and descriptions:** each entry has a `library-metadata` label with a plain name and a
+  one-line description of what to put in it. A small block (`blocks/library-metadata`, PR #16) removes
+  that label on rendered pages, so a previewed sample page shows no error boxes.
+- **A fix along the way:** the old list's Metadata entry pointed at a page that didn't exist. It now
+  has a sample (page title and description).
+- **The old versions:** the replaced list and section style sample were saved before uploading, so they
+  can be restored.
+
+**Checks:** all 13 sample pages rendered with the real block code (no error boxes or script errors,
+every image loads; the picture sits left, right or above as named; 2 and 4 per row show 2 and 4 cards;
+the background banner has its photo and overlay). The copies in DA match the local ones exactly, and
+all were previewed. Sample pages on `main`: 4 error boxes each before PR #16, none after. Page-speed
+check 100.
+
 ## Not done in step 3
 
 - **Restyling an existing block from the plugin** isn't possible with DA's plugin toolkit; the panel
   offers the header to copy instead.
 - **A real author insert in the DA editor** is still to be tried by an author (it was verified with a
   stand-in for the editor's toolkit).
+- **The block library in the editor** is still to be checked by an author (opening it needs a DA
+  login): Library → Blocks should list the 14 blocks, and an entry should insert with its content.
 - **The `pink-gradient` section style** still uses the original, brighter gradient (3.2:1 for small
   white text at the orange end). Darkening it would change live pages and is a separate decision.
 
