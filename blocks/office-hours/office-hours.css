@@ -1,0 +1,94 @@
+/* a fixed bar at the bottom: it overlays the page instead of pushing content, so nothing shifts */
+.office-hours {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-m);
+  padding: var(--spacing-m) var(--spacing-l);
+  background: var(--avanade-charcoal);
+  box-shadow: rgb(0 0 0 / 20%) 0 -4px 16px;
+  color-scheme: dark;
+  color: var(--color-text);
+
+  &[hidden] {
+    display: none;
+  }
+
+  p {
+    flex: 1;
+    margin: 0;
+    font-size: var(--body-font-size-m);
+    line-height: 24px;
+  }
+
+  a {
+    color: var(--color-text);
+    font-weight: var(--link-cta-font-weight);
+    white-space: nowrap;
+  }
+
+  /* a 40px target with an × drawn in CSS */
+  .office-hours-close {
+    flex: none;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 18px;
+      height: 2px;
+      margin: auto;
+      background: currentcolor;
+      rotate: 45deg;
+    }
+
+    &::after {
+      rotate: -45deg;
+    }
+
+    &:hover {
+      background: rgb(255 255 255 / 12%);
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentcolor;
+      outline-offset: 2px;
+    }
+  }
+}
+
+/* room below the footer, so the bar never hides the last lines of the page */
+footer:has(~ .office-hours:not([hidden])) {
+  padding-bottom: 96px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .office-hours:not([hidden]) {
+    animation: office-hours-in 0.3s ease-out;
+  }
+
+  @keyframes office-hours-in {
+    from { translate: 0 100%; }
+  }
+}
+
+@media (width >= 900px) {
+  .office-hours {
+    inset: auto var(--spacing-l) var(--spacing-l);
+    max-width: 880px;
+    margin-inline: auto;
+    border-radius: 16px;
+  }
+}

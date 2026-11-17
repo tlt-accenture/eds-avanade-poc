@@ -13,6 +13,7 @@ async function loadSidekick() {
   import('./utils/lazyhash.js');
   import('./utils/favicon.js');
   import('./utils/footer.js').then(({ default: footer }) => footer());
+  import('./utils/office-hours.js').then(({ default: officeHours }) => officeHours());
 
   // Author facing tools
   if (ENV !== 'prod') {
