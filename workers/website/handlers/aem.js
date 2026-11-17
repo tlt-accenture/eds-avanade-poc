@@ -30,7 +30,9 @@ const formatSchedule = async (response) => {
   return schedule2Response({ ...json, data });
 };
 
-export const fetchFromAem = async ({ request, cache, savedSearch }) => {
+export const fetchFromAem = async ({
+  request, env, cache, savedSearch,
+}) => {
   let resp = await fetch(request, { method: request.method, cf: { cacheEverything: cache } });
 
   // Recreate a mutable response
@@ -44,10 +46,30 @@ export const fetchFromAem = async ({ request, cache, savedSearch }) => {
   if (resp.status === 304) resp.headers.delete('Content-Security-Policy');
 
   resp.headers.delete('age');
-  resp.headers.delete('x-robots-tag');
+  // the origin asks search engines to stay away; only a domain meant to be found lifts that
+  if (env.ALLOW_INDEXING === 'true') resp.headers.delete('x-robots-tag');
+  else resp.headers.set('x-robots-tag', 'noindex, nofollow');
 
   return resp;
 };
+
+// A page the site doesn't have yet is still on the old site: send the visitor to the same path
+// there (temporarily, so it stops the day the page is migrated). The path is set on a URL built
+// from FALLBACK_ORIGIN, so a request path like //example.com can't change the host.
+export async function fetchPage(args) {
+  const resp = await fetchFromAem(args);
+  const { env, url, request } = args;
+  if (resp.status !== 404 || !env.FALLBACK_ORIGIN || !['GET', 'HEAD'].includes(request.method)) {
+    return resp;
+  }
+  const target = new URL(env.FALLBACK_ORIGIN);
+  target.pathname = url.pathname;
+  target.search = args.savedSearch;
+  return new Response(null, {
+    status: 302,
+    headers: { location: target.href, 'cache-control': 'no-store', 'x-robots-tag': 'noindex, nofollow' },
+  });
+}
 
 export async function fetchSchedule({ request, cache, savedSearch }) {
   const resp = await fetchFromAem({ request, cache, savedSearch });

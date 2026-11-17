@@ -10,8 +10,16 @@
  * governing permissions and limitations under the License.
  */
 
-import { fetchSchedule, fetchFromAem } from './handlers/aem.js';
+import { fetchSchedule, fetchFromAem, fetchPage } from './handlers/aem.js';
 import fetchDaSc from './handlers/dasc.js';
+
+const notFound = (message) => new Response(message, { status: 404 });
+
+const getExtension = (path) => {
+  const basename = path.split('/').pop();
+  const pos = basename.lastIndexOf('.');
+  return (basename === '' || pos < 1) ? '' : basename.slice(pos + 1);
+};
 
 const ROUTES = [
   // Handle schedule manifests
@@ -27,7 +35,23 @@ const ROUTES = [
   // Handle drafts
   {
     match: (path) => path.startsWith('/drafts'),
-    handler: () => new Response('Not found - drafts are denied on production.', { status: 404 }),
+    handler: () => notFound('Not found - drafts are denied on production.'),
+  },
+  // Author-only content (block samples, the block styles sheet) is not public
+  {
+    match: (path) => path === '/library' || path.startsWith('/library/'),
+    handler: () => notFound('Not found - the library is for authors only.'),
+  },
+  // The homepage is localized, so the bare domain goes to it
+  {
+    match: (path) => path === '/',
+    handler: ({ url, env }) => Response.redirect(new URL(env.HOME_PATH || '/en-us', url.origin).href, 302),
+  },
+  // Pages: a page not migrated yet is sent to the same path on the old site
+  {
+    match: (path) => getExtension(path) === '' && !path.startsWith('/.'),
+    handler: fetchPage,
+    cache: true,
   },
   // Default AEM handler should be last
   {
@@ -36,12 +60,6 @@ const ROUTES = [
     cache: true,
   },
 ];
-
-const getExtension = (path) => {
-  const basename = path.split('/').pop();
-  const pos = basename.lastIndexOf('.');
-  return (basename === '' || pos < 1) ? '' : basename.slice(pos + 1);
-};
 
 const isMediaRequest = (url) => /\/media_[0-9a-f]{40,}[/a-zA-Z0-9_-]*\.[0-9a-z]+$/.test(url.pathname);
 const isRUMRequest = (url) => /\/\.(rum|optel)\/.*/.test(url.pathname);
