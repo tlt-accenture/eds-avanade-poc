@@ -88,7 +88,8 @@ restyle an existing block by pasting the header text over its header.
 | PR #8 (merged) | Variations, shared themes, the plugin, the samples import, the design spec |
 | PR #10 (merged) | Plugin update: search, scrolling list, variations from a DA sheet (see section 8) |
 | PR #16 (merged) | Block library: hides the samples' labels on rendered pages (see section 9) |
-| Document Authoring | `docs/library/blocks.json` and 13 sample pages under `docs/library/blocks/`, the Avanade block library (previewed, not published live; see section 9) |
+| PR #19 (merged) | Section headings stay white on a dark section background (see section 10) |
+| Document Authoring | `docs/library/blocks.json` and 13 sample pages under `docs/library/blocks/`, the Avanade block library, with Avanade background colors (previewed, not published live; see sections 9 and 10) |
 | Document Authoring | `/library/block-styles` samples page (previewed, not published live) |
 | Document Authoring | `/library/block-style-options` sheet, the variation list authors maintain (previewed, not published live) |
 | DA site settings | A 5th library entry, **Block styles**, pointing at the plugin on `main`; the other 4 entries unchanged |
@@ -197,6 +198,37 @@ list: Document Authoring doesn't tell browsers how long to keep the list, so a b
 recently may reuse its saved copy for a few hours. Clearing the browser's cached files showed the new
 list. If authors keep seeing an old list after a change, a version number on the list's address in the
 site settings (`blocks.json?v=2`) makes every browser fetch it fresh.
+
+## 10. Update (2026-11-18): Avanade section background colors
+
+Section Metadata has a `background` key that paints a section in any color. The library suggested
+Author Kit's colors for it (dark grey, light grey, adobe-red, blue, green, a blue-to-pink gradient), so an
+author could pick a color that isn't Avanade's.
+
+**The suggestions are now Avanade's palette**, the colors that keep body text readable:
+
+| Suggestion | Color | Text on it | Contrast |
+|---|---|---|---|
+| charcoal | #333333 | White | 12.6:1 |
+| magenta | #ce0569 | White | 5.5:1 |
+| light-grey | #f6f7fb | Charcoal | 11.8:1 |
+
+- **Orange is left out:** body text on it is 3.2:1 in white and 4.0:1 in charcoal, below the 4.5:1
+  target either way.
+- **The gradient is left out:** a background is set as a single color, so a gradient wouldn't show. The
+  magenta-to-orange band stays the `pink-gradient` style.
+
+**A fix found along the way (PR #19):** section headings use gradient text on every band except
+`pink-gradient`. On the new magenta background a heading would have been magenta on magenta, and on
+charcoal hard to read. Headings on a dark section background now turn white, like the body text. Like
+a printed sign: a colored logo reads on a white wall, but on a matching wall it disappears and has to
+switch to white.
+
+**Checks:** the real section code applied each color to a homepage section at desktop and phone width:
+white heading and text on charcoal and magenta; gradient heading and charcoal text on light grey and on
+no background. The homepage and Cloud page headings are identical with and without the fix, since no
+page uses a section background yet. The library list in DA matched the last upload before the change (no
+one else had edited it), and the old copy was kept.
 
 ## Not done in step 3
 
