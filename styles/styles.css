@@ -272,8 +272,9 @@ main > .section {
     margin-bottom: var(--spacing-section, 0);
   }
 
-  /* brand headings: gradient text, except on the gradient band itself */
-  &:not(.pink-gradient) > .default-content h2 {
+  /* brand headings: gradient text, except on the gradient band and on a dark section background
+     (section-metadata marks its content dark-scheme), where they stay white */
+  &:not(.pink-gradient) > .default-content:not(.dark-scheme) h2 {
     background-image: var(--heading-gradient, none);
     background-clip: text;
     -webkit-text-fill-color: var(--heading-gradient-fill, currentcolor);
