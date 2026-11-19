@@ -10,11 +10,6 @@ main > .section:has(> .block-content > .jump-links) {
   }
 }
 
-/* land anchor targets below the bar; the block measures it */
-main > .section[id] {
-  scroll-margin-top: var(--jump-links-height, 0);
-}
-
 .jump-links {
   max-width: var(--grid-container-width);
   margin-inline: auto;
