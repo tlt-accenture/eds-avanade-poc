@@ -92,12 +92,22 @@ export default async function init(el) {
     const link = Object.assign(document.createElement('a'), { href: settings.link, textContent: settings['link-label'] || settings.link });
     text.append(link);
   }
+  // the space the bar covers at the bottom of the view (its height, its inset and a small gap),
+  // published for the footer, which makes that much room so the page's last lines stay visible
+  const root = document.documentElement.style;
+  const room = new ResizeObserver(() => {
+    const bottom = parseFloat(getComputedStyle(el).bottom) || 0;
+    root.setProperty('--bottom-bar-height', `${Math.ceil(el.offsetHeight + bottom + 12)}px`);
+  });
   const close = Object.assign(document.createElement('button'), { type: 'button', className: 'office-hours-close' });
   close.setAttribute('aria-label', settings['close-label'] || 'Close');
   close.addEventListener('click', () => {
     sessionStorage.setItem(DISMISSED, 'true');
+    room.disconnect();
+    root.removeProperty('--bottom-bar-height');
     el.remove();
   });
   el.append(text, close);
   el.hidden = false;
+  room.observe(el);
 }

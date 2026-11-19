@@ -7,6 +7,9 @@ footer {
   --footer-link-size: 20px;
 
   display: block;
+
+  /* room for a fixed bar at the bottom of the view (the office-hours banner publishes its size) */
+  padding-bottom: var(--bottom-bar-height, 0);
   background-color: var(--footer-background);
   color: var(--color-text);
   font-size: var(--body-font-size-m);

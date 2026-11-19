@@ -69,11 +69,6 @@
   }
 }
 
-/* room below the footer, so the bar never hides the last lines of the page */
-footer:has(~ .office-hours:not([hidden])) {
-  padding-bottom: 96px;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .office-hours:not([hidden]) {
     animation: office-hours-in 0.3s ease-out;
