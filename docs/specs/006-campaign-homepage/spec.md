@@ -69,6 +69,15 @@ Everyone else gets the standard homepage. One person can see every version by ch
    reads the sheet and swaps the words. Nothing new is statically reachable from `scripts.js`.
 7. **Fails safe.** If the sheet is slow (over about a second), missing, or has no matching row, the
    visitor gets the standard hero. Personalization is an extra, never a reason for an error.
+8. **Measured (added 2026-11-19).** Whenever a campaign is in the link or remembered, the hero records
+   an Operational Telemetry `audience` checkpoint: `source` is the campaign shown (`default` when the
+   standard hero shows instead), `target` the campaigns in the sheet (`ai:cloud:security`). It is the
+   checkpoint Adobe's experimentation plugin uses for campaigns, so Adobe's telemetry reads it the same
+   way. Visitors without a campaign record nothing extra; they are the baseline. Clicks on the hero
+   button carry their destination, so each hero's clicks can be counted. This needs the telemetry
+   enhancer, which Author Kit never starts (`RUM_MANUAL_ENHANCE`, with no `sampleRUM.enhance()` call;
+   Adobe's boilerplate calls it after the first section), so `scripts/lazy.js` now starts it after paint.
+   Without it, the site sent only the page-view event: no clicks, Core Web Vitals or checkpoints.
 
 ## Plan
 

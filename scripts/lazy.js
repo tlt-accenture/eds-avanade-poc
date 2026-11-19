@@ -14,6 +14,9 @@ async function loadSidekick() {
   import('./utils/favicon.js');
   import('./utils/footer.js').then(({ default: footer }) => footer());
   import('./utils/office-hours.js').then(({ default: officeHours }) => officeHours());
+  // rum.js waits for this call (RUM_MANUAL_ENHANCE) before it sends anything but "top": clicks,
+  // Core Web Vitals and custom checkpoints such as the campaign hero's "audience"
+  import('../deps/rum.js').then(({ default: sampleRUM }) => sampleRUM.enhance());
 
   // Author facing tools
   if (ENV !== 'prod') {
