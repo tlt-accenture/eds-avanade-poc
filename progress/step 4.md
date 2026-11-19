@@ -124,10 +124,50 @@ window shows the new version at once; real visitors switch within 2 hours, and n
 | PR #12 (merged) | The worker: Avanade fallback, hidden folders, `/` → `/en-us`, `noindex`, README with deploy steps |
 | PR #13 (merged) | Office-hours banner and the worker's `/geo.json` |
 | PR #14 (merged) | Campaign-aware homepage hero |
+| PR #21 (merged) | Campaign hero analytics, and the telemetry enhancer started (see section 9) |
 | Cloudflare | The worker, rebuilt from `main` on every merge |
 | Document Authoring + live | `/fragments/banners/office-hours` and `/fragments/campaigns/homepage` sheets (previewed and published live) |
 | Live | `/fragments/404` published; the homepage shows the banner and the campaign heroes |
 | btf-eds | Nothing from this work went there |
+
+## 9. Update (2026-11-19): measuring the campaign hero
+
+The team's architecture notes in btf-eds (`knowledge/arch`, "Personalization at the edge, v2") were
+compared with step 4. Most of it matched or did better: rules in an EW sheet, a time limit with a
+default, no flicker, no HTML rewriting at the edge, pages still cached for everyone, CORS limited to
+the site. Three gaps: push invalidation off, no consent check (both already listed below), and **the
+personalization wasn't measured**. This update closes that one.
+
+**What was found:** Edge Delivery's visit tracking (Operational Telemetry) has two parts. A small
+starter script records "a page view started"; the **enhancer** records everything else: clicks, Core
+Web Vitals, images seen, custom events. Author Kit never starts the enhancer (Adobe's boilerplate does,
+right after the first section), so the live site sent **one event per visit**. Not even clicks were
+recorded, so "does the AI hero get more clicks?" had no data to answer it. Like a shop door counter that
+counts people walking in, but nothing about what they looked at or bought.
+
+**What changed (PR #21):**
+- **The enhancer starts after the page has painted** (`scripts/lazy.js`, one line), as aem.live
+  recommends. The whole site now reports clicks, Core Web Vitals and the rest.
+- **The campaign hero records which hero was shown**, as an `audience` event: the same event Adobe's
+  experimentation plugin uses for campaigns, so Adobe's telemetry reads it the same way.
+
+| Visitor | Recorded |
+|---|---|
+| `?utm_campaign=ai` | `audience: ai` |
+| Back without the link (remembered) | `audience: cloud`. The link's own `utm` event doesn't fire on this visit, which is why `audience` matters |
+| `none`, or an unknown campaign | `audience: default` |
+| No campaign | Nothing extra: the baseline |
+
+- **Clicks carry their destination**, so "AI hero → AI services" can be counted against "standard hero
+  → Ask Avanade".
+- **The campaign spec** (`docs/specs/006-campaign-homepage`, decision 8) records the reasons.
+
+**Checks:** every row above, locally and then live on aem.live and the worker address; the Cloud page
+with a campaign link records no `audience`; visitors who aren't sampled send nothing and don't load the
+enhancer; no errors; page-speed check 100.
+
+**Reading the numbers:** only 1 visit in 100 is sampled, and a sandbox gets few visitors, so the reports
+fill slowly. Adding `&rum=on` to a link makes that visit count.
 
 ## Not done in step 4
 
@@ -139,3 +179,6 @@ window shows the new version at once; real visitors switch within 2 hours, and n
   in the Cloudflare dashboard's build log; it doesn't affect the site.
 - **Public holidays** aren't part of the office hours.
 - **The "page not found" wording** is still Author Kit's generic text.
+- **The missing enhancer upstream.** Every Author Kit site has the same gap; it's worth a GitHub issue
+  for the Author Kit maintainers (not filed).
+- **The office-hours banner** isn't measured yet; its clicks are now recorded like any other click.
