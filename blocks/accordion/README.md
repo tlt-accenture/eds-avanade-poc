@@ -10,10 +10,14 @@ Single block table. Content: One row per item: cell 1 title; cell 2 content (opt
 
 ## Supported variations
 
-| Variation | Option class |
-| --- | --- |
-| Cards | `cards` |
-| FAQ | `faq` |
+Combine at most one layout and one theme, e.g. `accordion (faq, dark)`. Light is the default theme. Themes paint the block's own surface: a rounded panel behind the accordion for the default and FAQ layouts, each card for Cards; the section style still sets the band behind it.
+
+| Variation | Group | Option class |
+| --- | --- | --- |
+| Cards | layout | `cards` |
+| FAQ | layout | `faq` |
+| Dark | theme | `dark` |
+| Light grey | theme | `light-grey` |
 
 ## Universal Editor fields
 
