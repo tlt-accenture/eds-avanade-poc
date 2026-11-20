@@ -25,6 +25,11 @@
   },
   "options": [
     {
+      "class": "cards",
+      "label": "Cards",
+      "group": "layout"
+    },
+    {
       "class": "faq",
       "label": "FAQ",
       "group": "layout"
