@@ -298,6 +298,85 @@
   }
 }
 
+/* split: no photo behind the text; dark text on the page, the photo row in a rounded frame beside
+   it from 900px (below it before); the badge cell isn't shown */
+.hero-video-badge.split {
+  gap: var(--spacing-l);
+  width: var(--hero-video-badge-width);
+  margin: 0 auto;
+  padding-block: 0;
+  color: var(--color-text);
+  text-align: start;
+  overflow: visible;
+
+  .hero-video-badge-background {
+    position: static;
+    order: 1;
+    height: 240px;
+    border-radius: var(--hero-video-badge-radius);
+    overflow: hidden;
+  }
+
+  .hero-video-badge-foreground {
+    grid-template-columns: none;
+    width: auto;
+    padding-block: 0;
+  }
+
+  .hero-video-badge-text {
+    width: auto;
+    padding-bottom: 0;
+  }
+
+  .hero-video-badge-text a {
+    margin-inline: 0;
+  }
+
+  .hero-video-badge-media {
+    display: none;
+  }
+}
+
+/* compact: the photo behind the text as in the default, as a short strip: the headline and its
+   intro only (no badge, no button) */
+.hero-video-badge.compact {
+  text-align: start;
+
+  /* white text on any photo, as the title banner's background option: a dark layer under the
+     text (the whole width on phones; from 900px it fades out past the text column) */
+  .hero-video-badge-background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 55%);
+  }
+
+  .hero-video-badge-foreground {
+    grid-template-columns: none;
+    padding-block: var(--spacing-l);
+  }
+
+  .hero-video-badge-text {
+    width: auto;
+    padding-bottom: 0;
+  }
+
+  h1 {
+    margin-bottom: var(--spacing-m);
+    font-size: var(--heading-font-size-xl);
+    line-height: 1.2;
+  }
+
+  .hero-video-badge-text p {
+    max-width: 720px;
+  }
+
+  .hero-video-badge-media,
+  .hero-video-badge-text p:has(> a:only-child) {
+    display: none;
+  }
+}
+
 @media (width >= 600px) {
   .hero-video-badge.card {
     --hero-video-badge-card-media-height: 329px;
@@ -334,6 +413,46 @@
     h1 {
       font-size: 64px;
       line-height: 72px;
+    }
+  }
+
+  .hero-video-badge.split {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 48px;
+
+    .hero-video-badge-background {
+      height: 440px;
+    }
+
+    .hero-video-badge-text {
+      justify-self: stretch;
+      width: auto;
+    }
+
+    h1 {
+      font-size: var(--heading-font-size-xl);
+      line-height: 1.2;
+    }
+  }
+
+  .hero-video-badge.compact {
+    .hero-video-badge-background::after {
+      background: linear-gradient(90deg, rgb(0 0 0 / 55%) 65%, rgb(0 0 0 / 20%));
+    }
+
+    .hero-video-badge-foreground {
+      padding-block: var(--spacing-xl);
+    }
+
+    .hero-video-badge-text {
+      justify-self: stretch;
+      width: auto;
+    }
+
+    h1 {
+      font-size: var(--heading-font-size-xl);
+      line-height: 1.2;
     }
   }
 }
