@@ -128,6 +128,12 @@ panel previews them.
 | Contact | Default: a 30px-rounded panel behind the heading, button and photo (24px padding; 40/64px and an 80px column gap from 900px). Banner: its own panel, border `light-dark(#ccc, #5c5c5c)` | The focus ring becomes white. The shared primary button already turns white with dark text in a dark scheme | Both layouts × 3 themes at 1440, 900 and 375: heading 12.6:1 (dark) and 11.8:1 (light grey); button text 18.9:1 on dark; the button stands out from the panel at 11.8–12.6:1 |
 | News cards | The default tiles are already light grey (`--color-shaded`), so (owner's choice, option A) Light keeps them. Dark: each tile charcoal. Light grey: a 30px-rounded grey panel behind the tiles (max 1128px), tiles white. List: Dark and Light grey both a panel behind the rows | The tag icon is a dark PNG from the source site, so it is inverted to white; the focus ring becomes white; title and link hovers underline | Both layouts × 3 themes at 1440 and 375: text 12.6:1 on charcoal and on the white tiles, 11.8:1 on light grey; the icon visible on charcoal |
 | Quote carousel | No layouts and no background of its own: a 30px-rounded panel behind the quotes and their controls (24px padding, 40px from 900px). The quotation mark keeps the brand gradient (decorative, hidden from screen readers) | The focus ring becomes white | Text, author rule and arrows 12.6:1 (dark) and 11.8:1 (light grey) at 1440 and 375. Also fixed: the other quotes' dots were 1.5–1.6:1, below the 3:1 a control needs, now `light-dark(#8c8c8c, #ccc)` (3.1–7.9:1); and Next/Previous did nothing until a manual swipe, because the block measured its width while the section was still hidden (0, so the position was NaN) |
+| Stats cards | Both layouts: a 30px-rounded panel behind the figures (24px padding, 40px from 900px); dividers `light-dark(#ccc, #5c5c5c)` | The numbers are white: the brand gradient's magenta end is 2.3:1 on charcoal, below the 3:1 large text needs | Both layouts × 3 themes at 1440 and 375: Dark numbers and captions 12.6:1; Light grey captions 11.8:1, gradient numbers 5.09 → 2.95:1 (see below) |
+
+**Open: the gradient numbers on light grey.** The gradient's orange end is 2.95:1 on light grey (#f6f7fb),
+a hair under the 3:1 large text needs (3.16:1 on white). The live homepage stats sit on a light-grey
+section, so it is already the case there; the Light grey theme matches it. A fix would darken the orange
+end of gradient text site-wide, a separate decision.
 
 ## Later goals
 

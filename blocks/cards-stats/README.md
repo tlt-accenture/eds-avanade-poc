@@ -10,9 +10,13 @@ Single block table. Content: One row per stat: either one cell with value paragr
 
 ## Supported variations
 
-| Variation | Option class |
-| --- | --- |
-| Row | `row` |
+Combine at most one layout and one theme, e.g. `cards-stats (row, dark)`. Light is the default theme. Themes paint a rounded panel behind the figures for both layouts; the section style still sets the band behind it. On Dark the numbers are white (the gradient's magenta end is 2.3:1 on charcoal).
+
+| Variation | Group | Option class |
+| --- | --- | --- |
+| Row | layout | `row` |
+| Dark | theme | `dark` |
+| Light grey | theme | `light-grey` |
 
 ## Universal Editor fields
 

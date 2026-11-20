@@ -55,6 +55,23 @@
   }
 }
 
+/* color themes (light is the default): a rounded panel of the theme's surface behind the figures,
+   for both layouts. On charcoal the gradient's magenta end is 2.3:1, below the 3:1 large text
+   needs, so dark numbers are white */
+.cards-stats:is(.dark, .light-grey) {
+  --cards-stats-rule: 1px solid light-dark(#ccc, #5c5c5c);
+
+  box-sizing: border-box;
+  padding: var(--spacing-l);
+  border-radius: 30px;
+  background: var(--block-surface);
+  color-scheme: var(--block-scheme);
+}
+
+.cards-stats.dark {
+  --cards-stats-value-fill: linear-gradient(var(--color-text), var(--color-text));
+}
+
 /* row: a compact band of figures. Two per row on phones; from 900px all in one row (up to 4, then
    rows of 4), smaller numbers, a thin divider between neighbours */
 .cards-stats.row {
@@ -166,5 +183,9 @@
     .cards-stats-item:nth-child(4n)::after {
       content: none;
     }
+  }
+
+  .cards-stats:is(.dark, .light-grey) {
+    padding: 40px;
   }
 }
