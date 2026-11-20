@@ -152,6 +152,68 @@
   }
 }
 
+/* cards: each item its own white card with a gradient accent, between the default's bars and
+   faq's plain rows */
+.accordion.cards {
+  gap: 16px;
+
+  .accordion-item {
+    position: relative;
+    border: 1px solid var(--accordion-rule);
+    border-radius: 16px;
+    background: var(--color-background);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+
+    /* the accent: a short vertical brand bar on the card's leading edge */
+    &::before {
+      content: "";
+      position: absolute;
+      inset-block: -1px;
+      inset-inline-start: -1px;
+      width: 6px;
+      border-start-start-radius: inherit;
+      border-end-start-radius: inherit;
+      background: linear-gradient(var(--avanade-magenta), var(--avanade-orange));
+    }
+  }
+
+  .accordion-title {
+    gap: 16px;
+    padding: 20px 24px;
+    border-radius: 16px;
+    background: none;
+    color: var(--color-text);
+    font-size: var(--heading-font-size-m);
+    line-height: normal;
+
+    &::after {
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover {
+      background: var(--gradient-brand);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* inside the card, so the ring follows its rounded corners */
+    &:focus-visible {
+      outline-offset: -4px;
+    }
+  }
+
+  .accordion-body {
+    margin: 0;
+    padding: 4px 24px 24px;
+
+    /* a subheading stays smaller than the card's own title */
+    > h4 {
+      font-size: var(--heading-font-size-s);
+    }
+  }
+}
+
 @media (width >= 600px) {
   .accordion {
     .accordion-title {
@@ -170,6 +232,16 @@
 
     .accordion-body {
       padding-right: 48px;
+    }
+  }
+
+  .accordion.cards {
+    .accordion-title {
+      padding: var(--spacing-l) 32px;
+    }
+
+    .accordion-body {
+      padding: 0 80px var(--spacing-l) 32px;
     }
   }
 }
