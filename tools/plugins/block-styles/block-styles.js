@@ -61,9 +61,22 @@ async function blocksWith(words, current) {
   return found.filter(Boolean);
 }
 
-// one row per choice in a scrolling list; the first item starts checked
+const NONE = {
+  layout: 'This block has no layout variations.',
+  theme: 'This block has no color themes yet.',
+};
+
+// one row per choice in a scrolling list; the first item starts checked. A block with nothing
+// but the default gets a sentence instead of a lone radio button
 function fillGroup(group, items) {
-  const list = form.querySelector(`[data-group="${group}"] .block-styles-list`);
+  const fieldset = form.querySelector(`[data-group="${group}"]`);
+  const list = fieldset.querySelector('.block-styles-list');
+  const none = items.length < 2;
+  fieldset.classList.toggle('is-none', none);
+  if (none) {
+    list.replaceChildren(Object.assign(document.createElement('p'), { className: 'block-styles-none', textContent: NONE[group] }));
+    return;
+  }
   list.replaceChildren(...items.map((item, i) => {
     const label = document.createElement('label');
     const input = Object.assign(document.createElement('input'), {
@@ -126,9 +139,10 @@ async function filter() {
       row.hidden = !isMatch && !row.querySelector('input').checked;
       row.classList.toggle('is-unmatched', !isMatch);
     });
-    fieldset.querySelector('.block-styles-group-count').textContent = words.length ? `${shown} of ${rows.length}` : '';
+    const none = fieldset.classList.contains('is-none');
+    fieldset.querySelector('.block-styles-group-count').textContent = words.length && !none ? `${shown} of ${rows.length}` : '';
     // with nothing matching anywhere in this block, the message below says it once
-    fieldset.querySelector('.block-styles-empty').hidden = !words.length || shown > 0 || total === 0;
+    fieldset.querySelector('.block-styles-empty').hidden = !words.length || shown > 0 || total === 0 || none;
   }
   searchCount.textContent = words.length ? `${total} ${total === 1 ? 'style matches' : 'styles match'}` : '';
 
@@ -179,8 +193,22 @@ function update() {
   frame.src = `./preview.html?${query}`;
 }
 
+// a block's samples load when it is picked; insert waits for them, and says so if they fail
+function checkSamples(name) {
+  loadSamples(name).then(() => {
+    if (blockSelect.value !== name || !insertBtn.disabled) return;
+    insertBtn.disabled = false;
+    status.textContent = '';
+  }).catch((e) => {
+    if (blockSelect.value !== name) return;
+    status.textContent = e.message;
+    insertBtn.disabled = true;
+  });
+}
+
 // a new block keeps whatever was typed, so the search runs again on its styles
 async function selectBlock(name) {
+  checkSamples(name);
   const { layout, theme } = await catalog[name];
   fillGroup('layout', layout);
   fillGroup('theme', theme);
@@ -195,7 +223,7 @@ async function insert() {
     status.textContent = 'Open this panel from the Document Authoring editor to insert blocks.';
     return;
   }
-  const el = buildBlock(block, await loadSamples(), { layout });
+  const el = buildBlock(block, await loadSamples(block), { layout });
   actions.sendHTML(toTable(el, headerText(block, { layout, theme })));
   actions.closeLibrary();
 }
@@ -251,8 +279,4 @@ frame.addEventListener('load', () => {
 new ResizeObserver(fit).observe(preview);
 root.querySelector('[data-action="copy"]').addEventListener('click', copy);
 insertBtn.addEventListener('click', insert);
-loadSamples().catch((e) => {
-  status.textContent = e.message;
-  insertBtn.disabled = true;
-});
 selectBlock(blockSelect.value);

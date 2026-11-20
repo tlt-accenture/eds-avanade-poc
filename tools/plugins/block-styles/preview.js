@@ -10,7 +10,7 @@ const main = document.querySelector('main');
 
 try {
   if (!BLOCKS.some((b) => b.name === name)) throw new Error(`Unknown block "${name}"`);
-  const block = buildBlock(name, await loadSamples(), picks);
+  const block = buildBlock(name, await loadSamples(name), picks);
   block.classList.add(...optionClasses(picks).filter((c) => /^[a-z0-9-]+$/.test(c)));
   block.dataset.blockName = name;
   const section = document.createElement('div');

@@ -57,7 +57,8 @@
   "options": [
     {
       "class": "card",
-      "label": "Card"
+      "label": "Card",
+      "group": "layout"
     }
   ],
   "memberVariantIds": [],

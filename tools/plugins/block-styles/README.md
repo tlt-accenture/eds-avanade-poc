@@ -36,4 +36,14 @@ If the sheet is missing, the panel falls back to the `options` in each block's `
 
 ## Samples
 
-Previews and inserted rows come from `/library/block-styles`, built by the `library` import template.
+Previews and inserted rows come from the DA block library, `/docs/library/blocks/<block>`: one page
+per block, one section per entry (the block with its option classes, then its `library-metadata`).
+The Library's **Blocks** list uses the same pages. For a picked layout, the panel takes the entry made
+for it (a card hero has different content from the homepage hero) and falls back to the block's
+plain entry; color themes are added as classes. Edit those pages in EW to change what authors see in
+both places.
+
+A block with no layouts (or no color themes) shows a sentence in that group instead of a list.
+
+`/library/block-styles` (built by the `library` import template) was the panel's first samples page.
+It is no longer read by the panel.

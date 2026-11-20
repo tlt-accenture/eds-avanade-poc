@@ -1,35 +1,52 @@
 // Shared by the Block styles plugin and its preview: which blocks it offers, where their samples
 // live, and how a sample becomes a styled block or a DA block table.
+// Every block authors place on pages, named as in the DA block library, in alphabetical order.
 export const BLOCKS = [
-  { name: 'columns-image-text', label: 'Columns: image and text' },
+  { name: 'accordion', label: 'Accordion' },
+  { name: 'cards-case-study', label: 'Case study cards' },
+  { name: 'contact', label: 'Contact' },
+  { name: 'hero-video-badge', label: 'Homepage hero' },
+  { name: 'columns-image-text', label: 'Image and text columns' },
+  { name: 'jump-links', label: 'Jump links' },
+  { name: 'cards-news', label: 'News cards' },
+  { name: 'carousel-promo', label: 'Promo carousel' },
+  { name: 'quote-carousel', label: 'Quote carousel' },
+  { name: 'cards-stats', label: 'Stats cards' },
   { name: 'hero-title-banner', label: 'Title banner', shapes: [{ class: 'background', label: 'With background image' }] },
-  { name: 'cards-case-study', label: 'Cards: case studies' },
 ];
 
 // the local preview serves pages under /content
 const local = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-const LIBRARY = new URL(`${local ? '/content' : ''}/library/`, window.location.origin);
-export const SAMPLES_URL = new URL('block-styles.plain.html', LIBRARY).href;
+const root = `${local ? '/content' : ''}`;
+const LIBRARY = new URL(`${root}/library/`, window.location.origin);
 // the DA sheet authors edit, one row per variation:
 // block, group (layout or theme), class, label, keywords, description
 export const OPTIONS_URL = new URL('block-style-options.json', LIBRARY).href;
+// the DA block library: one page per block, one section per entry (the block with its option
+// classes, then its library-metadata); the Library's Blocks list and this panel share them
+const BLOCK_LIBRARY = new URL(`${root}/docs/library/blocks/`, window.location.origin);
+export const sampleUrl = (name) => new URL(`${name}.plain.html`, BLOCK_LIBRARY).href;
 
-const absolute = (url) => new URL(url, SAMPLES_URL).href;
-const absoluteSrcset = (set) => set.split(',').map((entry) => {
+const absolute = (url, base) => new URL(url, base).href;
+const absoluteSrcset = (set, base) => set.split(',').map((entry) => {
   const [url, ...rest] = entry.trim().split(/\s+/);
-  return [absolute(url), ...rest].join(' ');
+  return [absolute(url, base), ...rest].join(' ');
 }).join(', ');
 
-let samples;
-export function loadSamples() {
-  samples ??= fetch(SAMPLES_URL).then(async (resp) => {
-    if (!resp.ok) throw new Error(`The samples page (${SAMPLES_URL}) answered ${resp.status}`);
+// a block's library entries, fetched once, when the block is first picked
+const samples = {};
+export function loadSamples(name) {
+  const url = sampleUrl(name);
+  samples[name] ??= fetch(url).then(async (resp) => {
+    if (!resp.ok) throw new Error(`The ${name} samples (${url}) answered ${resp.status}`);
     const doc = new DOMParser().parseFromString(await resp.text(), 'text/html');
-    doc.querySelectorAll('img[src]').forEach((img) => img.setAttribute('src', absolute(img.getAttribute('src'))));
-    doc.querySelectorAll('source[srcset]').forEach((src) => src.setAttribute('srcset', absoluteSrcset(src.getAttribute('srcset'))));
-    return Object.fromEntries(BLOCKS.map(({ name }) => [name, doc.querySelector(`div.${name}`)]));
+    doc.querySelectorAll('img[src]').forEach((img) => img.setAttribute('src', absolute(img.getAttribute('src'), url)));
+    doc.querySelectorAll('source[srcset]').forEach((src) => src.setAttribute('srcset', absoluteSrcset(src.getAttribute('srcset'), url)));
+    const entries = [...doc.querySelectorAll(`div.${name}`)];
+    if (!entries.length) throw new Error(`The ${name} samples (${url}) have no ${name} block`);
+    return entries;
   });
-  return samples;
+  return samples[name];
 }
 
 const KEBAB = /^[a-z0-9]+(-[a-z0-9]+)*$/;
@@ -80,15 +97,24 @@ export const headerText = (name, picks) => {
   return classes.length ? `${name} (${classes.join(', ')})` : name;
 };
 
-// a copy of the sample with the picked shape applied; option classes are added by the caller
-export function buildBlock(name, all, { layout }) {
-  const block = all[name].cloneNode(true);
+// a copy of the right sample: the library entry made for the picked layout when there is one
+// (its content can differ, like the card hero's), else the block's plain entry; the picked
+// shape is applied, and option classes are added by the caller
+export function buildBlock(name, entries, { layout }) {
+  const extras = (el) => [...el.classList].filter((c) => c !== name).join(' ');
+  const made = layout && !SHAPES.has(layout) && entries.find((el) => extras(el) === layout);
+  const plain = entries.find((el) => !extras(el));
+  const block = (made || plain || entries[0]).cloneNode(true);
+  block.className = name;
   if (layout === 'background') {
-    const picture = Object.values(all).map((s) => s?.querySelector('picture')).find(Boolean);
-    const row = document.createElement('div');
-    row.append(document.createElement('div'));
-    row.firstElementChild.append(picture.cloneNode(true));
-    block.prepend(row);
+    // the picture from the block's own "with background image" entry, or any of its pictures
+    const picture = entries.map((el) => el.querySelector('picture')).find(Boolean);
+    if (picture) {
+      const row = document.createElement('div');
+      row.append(document.createElement('div'));
+      row.firstElementChild.append(picture.cloneNode(true));
+      block.prepend(row);
+    }
   }
   return block;
 }
