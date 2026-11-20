@@ -37,6 +37,30 @@
   }
 }
 
+/* banner: a slim strip with no picture, heading beside the button from 900px; a white rounded
+   panel with a thin border, so it reads as one unit on any band */
+.contact.banner {
+  box-sizing: border-box;
+  padding: var(--spacing-l);
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  background: var(--color-background);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+
+  .contact-image {
+    display: none;
+  }
+
+  .contact-text {
+    gap: var(--spacing-l);
+  }
+
+  h2 {
+    font-size: var(--heading-font-size-l);
+    line-height: normal;
+  }
+}
+
 @media (width >= 900px) {
   .contact {
     .contact-row {
@@ -60,6 +84,28 @@
     .contact-image img {
       height: auto;
       aspect-ratio: 2 / 3;
+    }
+  }
+
+  .contact.banner {
+    padding: var(--spacing-xl) 40px;
+
+    .contact-row {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-text {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      a.btn {
+        white-space: nowrap;
+      }
+    }
+
+    h2 {
+      line-height: normal;
     }
   }
 }

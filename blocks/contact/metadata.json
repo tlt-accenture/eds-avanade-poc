@@ -23,7 +23,13 @@
     ],
     "authoring": "One row, two cells: cell 1 H2 and a bold link to /en-us/contact (renders as the primary button); cell 2 image only."
   },
-  "options": [],
+  "options": [
+    {
+      "class": "banner",
+      "label": "Banner",
+      "group": "layout"
+    }
+  ],
   "memberVariantIds": [],
   "usage": {
     "description": "Contact prompt: heading and button link beside a rounded portrait photo (stands in for the Marketo form).",
