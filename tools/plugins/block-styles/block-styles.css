@@ -94,12 +94,69 @@ body {
   font-size: 12px;
 }
 
+/* the block: a standard select, so keyboard, screen readers and phones keep their native picker */
+.block-styles-block {
+  display: grid;
+  gap: 6px;
+
+  label {
+    font-weight: 700;
+  }
+
+  select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #999;
+    border-radius: 8px;
+    background-color: #fff;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid var(--avanade-magenta);
+      outline-offset: 1px;
+    }
+  }
+}
+
 .block-styles-search {
   display: grid;
   gap: 6px;
 
   label {
     font-weight: 700;
+  }
+}
+
+/* "not for this block": what was typed, and where it is instead */
+.block-styles-message {
+  display: grid;
+  gap: 8px;
+
+  &:empty {
+    display: none;
+  }
+
+  p {
+    margin: 0;
+    padding: 8px 12px;
+    border-left: 3px solid var(--avanade-magenta);
+    border-radius: 4px;
+    background: var(--avanade-grey-50);
+  }
+}
+
+.block-styles-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  color: #636363;
+  font-size: 12px;
+
+  button {
+    font-size: 13px;
   }
 }
 

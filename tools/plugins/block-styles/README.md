@@ -1,7 +1,15 @@
 # Block styles plugin
 
-A DA Library plugin: authors pick a block, a layout and a color theme, see a live preview, and
-insert the block. Design: `docs/specs/004-block-style-plugin/spec.md`.
+A DA Library plugin: authors pick a block from a dropdown, then a layout and a color theme, see a
+live preview, and insert the block. Design: `docs/specs/004-block-style-plugin/spec.md`, with the
+version 2 goals in `docs/specs/007-block-styles-v2/spec.md`.
+
+## Search
+
+Search covers the selected block only. When a term isn't one of its styles, a message says so, and
+offers a **Switch to …** button for each other block that has it (up to 3). When part of a search
+isn't for the block, the rest still filters and a note names the word left out. The blocks offered
+are `BLOCKS` in `samples.js`; the dropdown, search and the lookup all read that list.
 
 ## Where the choices come from
 
