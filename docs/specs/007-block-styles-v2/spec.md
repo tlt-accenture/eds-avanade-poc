@@ -107,11 +107,12 @@ read just before).
 | Contact | **Banner** (`banner`) | A slim strip in a white rounded panel: heading beside the button from 900px, stacked and centered below; no picture (only cell 1 is used) | Default is a 540px closing section with a tall photo; Banner is a mid-page or photo-free call to action, about 107px tall |
 | Homepage hero | **Split** (`split`), after Card | No photo behind the text: dark headline, intro and button on the page, the photo row in a 30px-rounded frame beside it from 900px (below it on phones); badge cell not shown; 440px tall on desktop | The only hero with text beside the photo instead of on it: for photos whose detail text shouldn't cover |
 | Homepage hero | **Compact** (`compact`) | A short strip (about 280px): headline and intro in white on the photo, no badge, no button; a 55% dark layer under the text (flat on phones, fading past the text column from 900px) | The only short hero, for inner pages. The dark layer was measured: the worst pixel under the intro is 5.07:1 (desktop) and 5.35:1 (phone) against white, where 20% left it at 2.4:1 |
+| News cards | **List** (`list`) | The same cards as rows top to bottom with dividers, each as tall as its text (81px on desktop against 464px tiles); the tag in its own 160px column from 900px, so titles line up; "Read more" as the arrow at the end of the row (its accessible name unchanged); the whole row is the link and shows the focus ring; an image cell becomes a 96px thumbnail | The only version for many items or narrow spaces: the tiles scroll sideways after 4 or 5 and leave short headlines in mostly empty tiles |
 
 Also fixed: the panel's message now uses "an" before a vowel ("isn't an Accordion style").
 
 ## Later goals
 
-- Layouts for News cards and Stats cards (goal 3, continuing).
+- Layouts for Stats cards (goal 3, continuing).
 - Color themes for the 8 blocks that don't have them yet.
 - More to come from the owner, one at a time.
