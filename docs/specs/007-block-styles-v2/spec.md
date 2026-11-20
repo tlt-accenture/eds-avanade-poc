@@ -93,7 +93,23 @@ blocks (fragments, library labels) and Author Kit's own blocks.
 - **Content** (EW, on request): the options sheet with the two new rows, uploaded and previewed.
   Until it is, Accordion and Homepage hero show "no layout variations".
 
+## Goal 3: more layouts, one block at a time
+
+Before color themes, the owner is adding layout variations to Accordion, Contact, Homepage hero,
+News cards and Stats cards, one block at a time. Each ships the same way: the style's CSS, the
+block's README and `metadata.json` fallback (code, one PR), then a row in the options sheet and an
+entry on the block's library page (content, uploaded and previewed on request, built on the EW version
+read just before).
+
+| Block | New layout | What it is | Why this one |
+|---|---|---|---|
+| Accordion | **Cards** (`cards`), between Default and FAQ | Each item a white rounded card with a thin border, a soft shadow and a vertical brand accent; title above any subheading in size; focus ring inside the card | Default (gradient bars) is loud and FAQ is flat; Cards is calm enough to repeat and sits well on grey bands. Default stays the gradient bars, so the 10 Services pages don't change |
+| Contact | **Banner** (`banner`) | A slim strip in a white rounded panel: heading beside the button from 900px, stacked and centered below; no picture (only cell 1 is used) | Default is a 540px closing section with a tall photo; Banner is a mid-page or photo-free call to action, about 107px tall |
+
+Also fixed: the panel's message now uses "an" before a vowel ("isn't an Accordion style").
+
 ## Later goals
 
-- Color themes for the 8 blocks that don't have them yet (next).
+- Layouts for Homepage hero, News cards and Stats cards (goal 3, continuing).
+- Color themes for the 8 blocks that don't have them yet.
 - More to come from the owner, one at a time.

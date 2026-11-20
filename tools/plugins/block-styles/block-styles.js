@@ -146,7 +146,8 @@ async function filter() {
   }
   searchCount.textContent = words.length ? `${total} ${total === 1 ? 'style matches' : 'styles match'}` : '';
 
-  const label = blockLabel(block);
+  // "an Accordion style", "a Contact style"
+  const label = `${/^[aeiou]/i.test(blockLabel(block)) ? 'an' : 'a'} ${blockLabel(block)}`;
   if (!words.length) {
     message.replaceChildren();
   } else if (total === 0) {
@@ -154,7 +155,7 @@ async function filter() {
     if (run !== filtering) return;
     const typed = search.value.trim();
     if (others.length) {
-      showMessage(`"${typed}" isn't a ${label} style.`, others);
+      showMessage(`"${typed}" isn't ${label} style.`, others);
     } else {
       const [layout, theme] = [styles.layout[1], styles.theme[1]].map((s) => s?.label);
       const hint = layout && theme ? ` Try a layout or a color theme, such as "${layout}" or "${theme}".` : '';
@@ -163,7 +164,7 @@ async function filter() {
   } else if (unknown.length) {
     const others = await blocksWith(unknown, block);
     if (run !== filtering) return;
-    showMessage(`"${unknown.join(' ')}" isn't a ${label} style, so it's left out.`, others);
+    showMessage(`"${unknown.join(' ')}" isn't ${label} style, so it's left out.`, others);
   } else {
     message.replaceChildren();
   }

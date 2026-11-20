@@ -6,11 +6,13 @@ Custom **custom** block. Purpose: Contact prompt: heading and button link beside
 
 Model: `standalone`
 
-Single block table. Content: One row, two cells: cell 1 H2 and a bold link to /en-us/contact (renders as the primary button); cell 2 image only.
+Single block table. Content: One row, two cells: cell 1 H2 and a bold link to /en-us/contact (renders as the primary button); cell 2 image only. Banner option: cell 1 only; a picture cell, if authored, isn't shown.
 
 ## Supported variations
 
-No variations.
+| Variation | Option class |
+| --- | --- |
+| Banner: a slim strip in a white rounded panel, the heading beside the button from 900px, no picture | `banner` |
 
 ## Universal Editor fields
 
