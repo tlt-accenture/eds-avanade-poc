@@ -1,7 +1,7 @@
 # Block styles plugin, version 2
 
 Date: 2026-11-20
-Status: goal 1 in progress; later goals to come from the owner
+Status: goal 1 shipped (PR #25); goal 2 in progress; later goals to come from the owner
 
 Builds on `docs/specs/004-block-style-plugin` (the panel, its samples and the DA options sheet). The
 owner is bringing a set of goals, taken one at a time. The direction is known: later goals bring in
@@ -61,7 +61,39 @@ least one of that block's styles matches.
    right table.
 4. One PR. The editor's "Block styles" entry already points at `main`, so no EW settings change.
 
+## Goal 2: every project block, layouts first
+
+### Problem
+
+The panel offers 3 of the 11 blocks authors place on pages. Of the 11, 5 have layout variations
+(Image and text columns, Title banner, Case study cards, Accordion: FAQ, Homepage hero: card) and 6
+have none (Contact, Jump links, News cards, Promo carousel, Quote carousel, Stats cards). Only the
+first 3 have color themes. Not counted: site parts (header, footer, the office-hours banner), helper
+blocks (fragments, library labels) and Author Kit's own blocks.
+
+### Decisions (owner, 2026-11-20)
+
+1. **All 11 blocks in the dropdown**, named as in the DA block library and in alphabetical order, so
+   authors see one name per block in both Library panels.
+2. **A sentence instead of a blank group.** A block with no layouts shows "This block has no layout
+   variations." in the Layout box; with no color themes, "This block has no color themes yet." Color
+   themes for the other 8 blocks are the next goal.
+3. **Samples from the DA block library** (`/docs/library/blocks/<block>`), the pages the Library's
+   Blocks list already uses, instead of `/library/block-styles` (3 blocks only). A picked layout uses
+   the entry made for it, so the card hero and the FAQ accordion preview and insert their own content;
+   otherwise the plain entry, with option classes added. Each block's page is fetched when it is first
+   picked.
+4. **Two new rows in the options sheet** (`/library/block-style-options`): `accordion` / layout /
+   `faq` and `hero-video-badge` / layout / `card`, with labels, keywords and descriptions. The blocks'
+   `metadata.json` fallback lists tag those two options as layouts too.
+
+### Ships in two parts
+
+- **Code** (PR): the block list, the sentences, the samples source.
+- **Content** (EW, on request): the options sheet with the two new rows, uploaded and previewed.
+  Until it is, Accordion and Homepage hero show "no layout variations".
+
 ## Later goals
 
-To come from the owner, one at a time. Known direction: every block built for this project in the
-panel.
+- Color themes for the 8 blocks that don't have them yet (next).
+- More to come from the owner, one at a time.

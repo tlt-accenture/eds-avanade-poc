@@ -26,7 +26,8 @@
   "options": [
     {
       "class": "faq",
-      "label": "FAQ"
+      "label": "FAQ",
+      "group": "layout"
     }
   ],
   "memberVariantIds": [],

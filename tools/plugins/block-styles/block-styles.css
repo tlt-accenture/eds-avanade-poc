@@ -81,6 +81,13 @@ body {
   }
 }
 
+/* a block without variations in this group: one sentence in the list's box */
+.block-styles-none {
+  margin: 0;
+  padding: 10px 12px;
+  color: #636363;
+}
+
 .block-styles-desc {
   grid-column: 2;
   color: #636363;
