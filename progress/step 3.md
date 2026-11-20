@@ -89,9 +89,10 @@ restyle an existing block by pasting the header text over its header.
 | PR #10 (merged) | Plugin update: search, scrolling list, variations from a DA sheet (see section 8) |
 | PR #16 (merged) | Block library: hides the samples' labels on rendered pages (see section 9) |
 | PR #19 (merged) | Section headings stay white on a dark section background (see section 10) |
+| PRs #25–#36 (merged) | Block styles plugin version 2: block dropdown and scoped search, all 11 blocks, 6 new layouts, color themes for 5 more blocks (see section 11) |
 | Document Authoring | `docs/library/blocks.json` and 13 sample pages under `docs/library/blocks/`, the Avanade block library, with Avanade background colors (previewed, not published live; see sections 9 and 10) |
-| Document Authoring | `/library/block-styles` samples page (previewed, not published live) |
-| Document Authoring | `/library/block-style-options` sheet, the variation list authors maintain (previewed, not published live) |
+| Document Authoring | `/library/block-styles` samples page (previewed, not published live; no longer read by the panel since PR #26) |
+| Document Authoring | `/library/block-style-options` sheet, the variation list authors maintain: 37 rows for 9 blocks (previewed, not published live) |
 | DA site settings | A 5th library entry, **Block styles**, pointing at the plugin on `main`; the other 4 entries unchanged |
 | Live | Homepage and service pages unchanged; the new options are available to authors |
 | btf-eds | Nothing from this work went there |
@@ -230,6 +231,86 @@ no background. The homepage and Cloud page headings are identical with and witho
 page uses a section background yet. The library list in DA matched the last upload before the change (no
 one else had edited it), and the old copy was kept.
 
+## 11. Update (2026-11-20): Block styles plugin, version 2
+
+The owner brought a set of goals for the Block styles panel and took them one at a time. Design:
+`docs/specs/007-block-styles-v2/spec.md`.
+
+### Goal 1: a block dropdown and a search scoped to it (PR #25)
+
+- **A dropdown instead of radio buttons** for the block: a standard select, so keyboard, screen readers
+  and phones keep their native picker (the fully customizable select is Chrome-only).
+- **Search covers the selected block only**, and switching blocks keeps what was typed.
+- **A message when a term isn't for this block**: `"photo" isn't a Cards: case studies style. It's in:`
+  with a **Switch to …** button per block that has it (up to 3); "No styles match" with a hint when it
+  exists nowhere; and a "left out" note when only part of a search is unknown.
+
+Like a hardware store assistant: ask for hinges in the paint aisle and they say "aisle 7, want me to
+take you there?" instead of "we don't have that".
+
+### Goal 2: every block, layouts first (PR #26)
+
+- **All 11 blocks** authors place on pages are in the dropdown, named as in the block library and in
+  alphabetical order.
+- **A sentence instead of a blank box**: "This block has no layout variations." and "This block has no
+  color themes yet."
+- **Samples now come from the block library pages** (`docs/library/blocks/<block>`), the same pages the
+  Library's Blocks list uses, so editing one page in EW updates both panels. A picked layout uses the
+  entry made for it (a card hero has different content from the homepage hero).
+
+### Goal 3: new layouts, one block at a time (PRs #27–#31)
+
+| Block | New layout | What it is |
+|---|---|---|
+| Accordion | **Cards** | Each item a white rounded card with a brand accent: calmer than the gradient bars, more distinct than FAQ |
+| Contact | **Banner** | A slim strip with the heading beside the button and no picture (107px against 540px) |
+| Homepage hero | **Split** | Dark text on the page beside the photo in a rounded frame, instead of text on the photo |
+| Homepage hero | **Compact** | A short strip (280px) with the headline and intro on the photo, for inner pages |
+| News cards | **List** | Rows with dividers (81px each) instead of 464px tiles, for many items |
+| Stats cards | **Row** | All figures in one row (142px against 529px; 417px against 1,123px on phones) |
+
+Every default stayed as it was, so no live page changed.
+
+### Goal 4: color themes (PRs #32–#36)
+
+Accordion, Contact, News cards, Quote carousel and Stats cards got **Light** (the default), **Dark** and
+**Light grey**, on the shared theme layer. Each block decides what the theme paints (a panel behind
+the block, or each card or tile), and layouts and themes combine, e.g. `accordion (cards, dark)`.
+
+On Dark, the magenta focus ring and gradient text fall below the contrast they need on charcoal, so:
+the focus ring turns white, gradient hovers become underlines, and the Stats numbers turn white.
+
+**A choice the owner made:** News cards' default tiles were already light grey, so a "Light grey"
+theme on the tiles would have looked like the default. Light keeps today's tiles; Light grey puts the
+block on a grey panel and turns the tiles white.
+
+### Found and fixed along the way
+
+- **Compact hero readability:** white text over the photo's bright highlights measured 2.4:1. A dark
+  layer under the text brings the worst spot to 5.1:1.
+- **Quote carousel controls:** with more than one quote, Next and Previous did nothing until a manual
+  swipe, because the block measured its width while the page still hid the section. Its other dots
+  were 1.6:1, below the 3:1 a control needs; they're now 3.1:1 or better. No live page was affected
+  (each has one quote).
+- **Layout slips caught by measuring:** the Contact banner and the News cards' light grey panel came
+  out wider than the page column; the News list rows came out narrower; captions drifted out of line
+  in the Stats row on phones. All fixed before shipping.
+- **Panel wording:** "isn't an Accordion style" instead of "a Accordion".
+
+### Shipping, and one lesson
+
+Each change shipped the same way: the code as a PR, and the style list (and a block library entry for
+each new layout) uploaded to EW and previewed, each time after checking that nobody had edited it in
+EW since it was last read, and read back afterwards. Uploading the content just before merging kept the
+gap short: for a few minutes the panel listed a new style before its styling was live.
+
+**Lesson:** twice the panel showed old options after an update, because the browser kept a saved copy
+of the style list or the panel's code. Clearing cached files fixed it both times.
+
+**Checks:** every layout and theme was rendered through the block's own code at desktop and phone
+widths, contrast measured, previews and inserts checked in the panel EW opens, and the live pages
+compared before and after each merge. 29 searches, one or more per new style, all find their style.
+
 ## Not done in step 3
 
 - **Restyling an existing block from the plugin** isn't possible with DA's plugin toolkit; the panel
@@ -238,6 +319,13 @@ one else had edited it), and the old copy was kept.
   stand-in for the editor's toolkit).
 - **The `pink-gradient` section style** still uses the original, brighter gradient (3.2:1 for small
   white text at the orange end). Darkening it would change live pages and is a separate decision.
+- **Gradient numbers on light grey:** the Stats cards gradient's orange end is 2.95:1 on light grey, a
+  hair under the 3:1 large text needs; it's the same on the live homepage today. A fix would darken
+  gradient text site-wide.
+- **Themes for the other blocks:** Homepage hero, Jump links and Promo carousel have no color themes
+  yet.
+- **Block-specific theme keywords:** the new themes use the original three blocks' keywords; for
+  example "white" doesn't find News cards' Light grey (which turns the tiles white).
 
 ## Next: step 4
 
