@@ -10,9 +10,13 @@ Single block table. Content: One row, two cells: cell 1 H2 and a bold link to /e
 
 ## Supported variations
 
-| Variation | Option class |
-| --- | --- |
-| Banner: a slim strip in a white rounded panel, the heading beside the button from 900px, no picture | `banner` |
+Combine at most one layout and one theme, e.g. `contact (banner, dark)`. Light is the default theme. Themes paint the block's own surface: a rounded panel behind the heading, button and photo for the default layout, Banner's own panel for Banner; the section style still sets the band behind it.
+
+| Variation | Group | Option class |
+| --- | --- | --- |
+| Banner: a slim strip in a white rounded panel, the heading beside the button from 900px, no picture | layout | `banner` |
+| Dark | theme | `dark` |
+| Light grey | theme | `light-grey` |
 
 ## Universal Editor fields
 
