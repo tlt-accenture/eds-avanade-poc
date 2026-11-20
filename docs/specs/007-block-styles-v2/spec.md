@@ -125,6 +125,7 @@ panel previews them.
 | Block | Surface | Dark-specific | Checked |
 |---|---|---|---|
 | Accordion | Default and FAQ: a 30px-rounded panel behind the accordion (24px padding, 40px from 900px). Cards: each card | The magenta focus ring (2.3:1 on charcoal) becomes white (12.6:1); title and link hovers underline instead of turning gradient | Every layout × theme at 1440 and 375: body text and links 12.6:1 (dark) and 11.8:1 (light grey); titles the same, or white on the gradient bars |
+| Contact | Default: a 30px-rounded panel behind the heading, button and photo (24px padding; 40/64px and an 80px column gap from 900px). Banner: its own panel, border `light-dark(#ccc, #5c5c5c)` | The focus ring becomes white. The shared primary button already turns white with dark text in a dark scheme | Both layouts × 3 themes at 1440, 900 and 375: heading 12.6:1 (dark) and 11.8:1 (light grey); button text 18.9:1 on dark; the button stands out from the panel at 11.8–12.6:1 |
 
 ## Later goals
 
