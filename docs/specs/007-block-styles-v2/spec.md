@@ -108,11 +108,11 @@ read just before).
 | Homepage hero | **Split** (`split`), after Card | No photo behind the text: dark headline, intro and button on the page, the photo row in a 30px-rounded frame beside it from 900px (below it on phones); badge cell not shown; 440px tall on desktop | The only hero with text beside the photo instead of on it: for photos whose detail text shouldn't cover |
 | Homepage hero | **Compact** (`compact`) | A short strip (about 280px): headline and intro in white on the photo, no badge, no button; a 55% dark layer under the text (flat on phones, fading past the text column from 900px) | The only short hero, for inner pages. The dark layer was measured: the worst pixel under the intro is 5.07:1 (desktop) and 5.35:1 (phone) against white, where 20% left it at 2.4:1 |
 | News cards | **List** (`list`) | The same cards as rows top to bottom with dividers, each as tall as its text (81px on desktop against 464px tiles); the tag in its own 160px column from 900px, so titles line up; "Read more" as the arrow at the end of the row (its accessible name unchanged); the whole row is the link and shows the focus ring; an image cell becomes a 96px thumbnail | The only version for many items or narrow spaces: the tiles scroll sideways after 4 or 5 and leave short headlines in mostly empty tiles |
+| Stats cards | **Row** (`row`) | A compact band: from 900px all figures in one row (up to 4; from 5, rows of 4 with a rule between rows), 56px numbers, a thin divider between neighbours; two per row on phones (40px numbers); each figure starts at the top of its row; count-up unchanged | The default is a feature moment (96px numbers, two by two, 529px) and stacks to 1,123px on phones; Row is 142px on desktop and 417px on phones, for a band of figures on any page |
 
 Also fixed: the panel's message now uses "an" before a vowel ("isn't an Accordion style").
 
 ## Later goals
 
-- Layouts for Stats cards (goal 3, continuing).
 - Color themes for the 8 blocks that don't have them yet.
 - More to come from the owner, one at a time.
