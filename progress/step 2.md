@@ -115,6 +115,7 @@ Edge Delivery left an empty section at the end of every page (where the metadata
 |---|---|
 | PR #5 (merged) | Service template: 4 new blocks, 4 variants, grey-fade style, importer |
 | PR #6 (merged) | Hide empty sections (blank band above the footer) |
+| PR #23 (merged) | Jump links (and the office-hours banner) style only themselves (see section 10) |
 | Document Authoring | The 10 service pages under /en-us/services/ |
 | Live | All 10 service pages, 0 errors |
 | btf-eds | Nothing from this work went there |
@@ -122,6 +123,34 @@ Edge Delivery left an empty section at the end of every page (where the metadata
 The 10 live pages: cloud, data-ai-transformation, artificial-intelligence, security, experiences,
 agentic-ai-platform, business-applications, pre-packaged-solutions, ai-workforce, managed-services
 (each at `/en-us/services/<name>`).
+
+## 10. Update (2026-11-19): blocks style only themselves
+
+A review against the team's block guidelines in btf-eds (`AGENTS.md`, `EMMA.md` and
+`knowledge/conventions`: "scope every selector to the block") found two blocks reaching outside
+themselves. One was the jump links built in this step; the other was step 4's office-hours banner,
+fixed in the same PR.
+
+**The pattern now:** a block publishes a measurement as a page-level CSS variable, and the element that
+owns the space uses it. Like a delivery driver who tells reception how big the parcel is, instead of
+walking in and moving the furniture.
+
+| Block | Before | After |
+|---|---|---|
+| Jump links | The block's CSS gave every page section with an id extra space at the top, so anchors landed below the sticky bar | The page's own scroll offset in `styles.css` adds the bar's height, which the block already measures (`--jump-links-height`) |
+| Office-hours banner | The block's CSS gave the footer a fixed 96px of room | The banner publishes how much of the screen it covers (`--bottom-bar-height`, cleared on close); the footer's own CSS makes that much room |
+
+- **Jump links land exactly where they did:** on the Cloud page, 16px below the bar for each link
+  (the first right under it), at desktop and phone widths, before and after.
+- **The banner fix closed a hidden gap:** on a 320px phone the message wraps and the bar is 120px tall,
+  but the old fixed room was 96px. It now gets 132px (100px on desktop, 108px at 375px), and 0 once
+  closed or on pages without the banner.
+- **Kept on purpose:** jump links still make their *section* sticky, through the section that contains
+  the block. A sticky block can only stick until the end of its own section, so the section has to be
+  the sticky box; the CSS comment says why.
+
+**Checks:** local against live, then live on aem.live and aem.page after the merge; eslint and
+stylelint clean; page-speed check 100.
 
 ## Not done in step 2
 
