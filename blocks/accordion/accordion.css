@@ -214,6 +214,45 @@
   }
 }
 
+/* color themes (light is the default): Default and FAQ sit on a rounded panel of the theme's
+   surface; Cards paints each card. Text, links and chevrons follow the theme's color scheme */
+.accordion:is(.dark, .light-grey) {
+  --accordion-rule: light-dark(#ccc, #5c5c5c);
+
+  color-scheme: var(--block-scheme);
+  color: var(--color-text);
+}
+
+.accordion:is(.dark, .light-grey):not(.cards) {
+  box-sizing: border-box;
+  padding: var(--spacing-l);
+  border-radius: 30px;
+  background: var(--block-surface);
+}
+
+.accordion.cards:is(.dark, .light-grey) .accordion-item {
+  background: var(--block-surface);
+}
+
+/* on charcoal the magenta focus ring and gradient hovers fall below 3:1, so dark uses white
+   for the ring and an underline for hovers */
+.accordion.dark {
+  .accordion-title:focus-visible {
+    outline-color: var(--color-text);
+  }
+
+  &:is(.faq, .cards) .accordion-title:hover,
+  p > a:only-child:not(.btn):hover {
+    background: none;
+    -webkit-text-fill-color: currentcolor;
+    text-decoration: underline;
+  }
+
+  p > a:only-child:not(.btn):hover::after {
+    background: currentcolor;
+  }
+}
+
 @media (width >= 600px) {
   .accordion {
     .accordion-title {
@@ -259,5 +298,9 @@
         line-height: 36px;
       }
     }
+  }
+
+  .accordion:is(.dark, .light-grey):not(.cards) {
+    padding: 40px;
   }
 }

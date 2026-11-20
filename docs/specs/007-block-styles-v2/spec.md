@@ -112,6 +112,20 @@ read just before).
 
 Also fixed: the panel's message now uses "an" before a vowel ("isn't an Accordion style").
 
+## Goal 4: color themes, one block at a time
+
+Accordion, Contact, News cards, Quote carousel and Stats cards get at least Light (the default, no
+class), Dark and Light grey, using the shared theme layer in `styles/styles.css` (`--block-surface`,
+`--block-scheme`): each block decides which element is its surface, and its text, links and icons
+follow the theme's color scheme. A block's layouts and themes combine, e.g. `accordion (cards, dark)`.
+Each ships as before: CSS, README and `metadata.json` (one PR), then the theme rows in the options
+sheet (worded as the existing theme rows). Themes have no block library entries; the Block styles
+panel previews them.
+
+| Block | Surface | Dark-specific | Checked |
+|---|---|---|---|
+| Accordion | Default and FAQ: a 30px-rounded panel behind the accordion (24px padding, 40px from 900px). Cards: each card | The magenta focus ring (2.3:1 on charcoal) becomes white (12.6:1); title and link hovers underline instead of turning gradient | Every layout × theme at 1440 and 375: body text and links 12.6:1 (dark) and 11.8:1 (light grey); titles the same, or white on the gradient bars |
+
 ## Later goals
 
 - Color themes for the 8 blocks that don't have them yet.
