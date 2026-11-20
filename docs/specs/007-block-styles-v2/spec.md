@@ -105,11 +105,13 @@ read just before).
 |---|---|---|---|
 | Accordion | **Cards** (`cards`), between Default and FAQ | Each item a white rounded card with a thin border, a soft shadow and a vertical brand accent; title above any subheading in size; focus ring inside the card | Default (gradient bars) is loud and FAQ is flat; Cards is calm enough to repeat and sits well on grey bands. Default stays the gradient bars, so the 10 Services pages don't change |
 | Contact | **Banner** (`banner`) | A slim strip in a white rounded panel: heading beside the button from 900px, stacked and centered below; no picture (only cell 1 is used) | Default is a 540px closing section with a tall photo; Banner is a mid-page or photo-free call to action, about 107px tall |
+| Homepage hero | **Split** (`split`), after Card | No photo behind the text: dark headline, intro and button on the page, the photo row in a 30px-rounded frame beside it from 900px (below it on phones); badge cell not shown; 440px tall on desktop | The only hero with text beside the photo instead of on it: for photos whose detail text shouldn't cover |
+| Homepage hero | **Compact** (`compact`) | A short strip (about 280px): headline and intro in white on the photo, no badge, no button; a 55% dark layer under the text (flat on phones, fading past the text column from 900px) | The only short hero, for inner pages. The dark layer was measured: the worst pixel under the intro is 5.07:1 (desktop) and 5.35:1 (phone) against white, where 20% left it at 2.4:1 |
 
 Also fixed: the panel's message now uses "an" before a vowel ("isn't an Accordion style").
 
 ## Later goals
 
-- Layouts for Homepage hero, News cards and Stats cards (goal 3, continuing).
+- Layouts for News cards and Stats cards (goal 3, continuing).
 - Color themes for the 8 blocks that don't have them yet.
 - More to come from the owner, one at a time.

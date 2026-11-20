@@ -59,6 +59,16 @@
       "class": "card",
       "label": "Card",
       "group": "layout"
+    },
+    {
+      "class": "split",
+      "label": "Split",
+      "group": "layout"
+    },
+    {
+      "class": "compact",
+      "label": "Compact",
+      "group": "layout"
     }
   ],
   "memberVariantIds": [],
