@@ -33,6 +33,16 @@
       "class": "row",
       "label": "Row",
       "group": "layout"
+    },
+    {
+      "class": "dark",
+      "label": "Dark",
+      "group": "theme"
+    },
+    {
+      "class": "light-grey",
+      "label": "Light grey",
+      "group": "theme"
     }
   ],
   "memberVariantIds": [],
