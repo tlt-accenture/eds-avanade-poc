@@ -10,7 +10,12 @@ Single block table. Content: One row per slide, one cell: quotation paragraph(s)
 
 ## Supported variations
 
-No variations.
+Light is the default theme. Themes paint a rounded panel behind the quotes and their controls; the text, the author rule and the arrows follow the theme's color scheme, and the quotation mark keeps the brand gradient. The section style still sets the band behind it.
+
+| Variation | Group | Option class |
+| --- | --- | --- |
+| Dark | theme | `dark` |
+| Light grey | theme | `light-grey` |
 
 ## Universal Editor fields
 

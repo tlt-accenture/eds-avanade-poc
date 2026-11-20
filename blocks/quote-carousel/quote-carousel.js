@@ -46,7 +46,8 @@ export default function init(el) {
   const next = button('next', 'Next quote', () => go(index + 1));
   const dots = slides.map((_, i) => button('dot', `Show quote ${i + 1}`, () => go(i)));
   const update = () => {
-    index = Math.round(track.scrollLeft / track.clientWidth);
+    // the section is still hidden (width 0) when the block first runs
+    index = Math.round(track.scrollLeft / (track.clientWidth || 1));
     dots.forEach((dot, i) => { dot.ariaCurrent = i === index ? 'true' : null; });
     prev.ariaDisabled = index === 0;
     next.ariaDisabled = index === slides.length - 1;
