@@ -14,17 +14,18 @@
     <main class="block-styles">
       <h1>Block styles</h1>
       <form>
-        <fieldset data-group="block">
-          <legend>Block</legend>
-          <div class="block-styles-list"></div>
-        </fieldset>
+        <div class="block-styles-block">
+          <label for="block-select">Block</label>
+          <select id="block-select" name="block"></select>
+        </div>
         <div class="block-styles-search" role="search">
           <label for="style-search">Search styles</label>
           <div class="block-styles-search-field">
-            <input id="style-search" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. dark, 2 per row" aria-describedby="search-count"/>
+            <input id="style-search" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. dark, 2 per row" aria-describedby="search-count search-message"/>
             <button type="button" data-action="clear" aria-label="Clear search" hidden>×</button>
           </div>
           <p class="block-styles-count" id="search-count" aria-live="polite"></p>
+          <div class="block-styles-message" id="search-message" aria-live="polite"></div>
         </div>
         <fieldset data-group="layout">
           <legend>Layout <span class="block-styles-group-count"></span></legend>
