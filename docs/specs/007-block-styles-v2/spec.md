@@ -126,6 +126,7 @@ panel previews them.
 |---|---|---|---|
 | Accordion | Default and FAQ: a 30px-rounded panel behind the accordion (24px padding, 40px from 900px). Cards: each card | The magenta focus ring (2.3:1 on charcoal) becomes white (12.6:1); title and link hovers underline instead of turning gradient | Every layout × theme at 1440 and 375: body text and links 12.6:1 (dark) and 11.8:1 (light grey); titles the same, or white on the gradient bars |
 | Contact | Default: a 30px-rounded panel behind the heading, button and photo (24px padding; 40/64px and an 80px column gap from 900px). Banner: its own panel, border `light-dark(#ccc, #5c5c5c)` | The focus ring becomes white. The shared primary button already turns white with dark text in a dark scheme | Both layouts × 3 themes at 1440, 900 and 375: heading 12.6:1 (dark) and 11.8:1 (light grey); button text 18.9:1 on dark; the button stands out from the panel at 11.8–12.6:1 |
+| News cards | The default tiles are already light grey (`--color-shaded`), so (owner's choice, option A) Light keeps them. Dark: each tile charcoal. Light grey: a 30px-rounded grey panel behind the tiles (max 1128px), tiles white. List: Dark and Light grey both a panel behind the rows | The tag icon is a dark PNG from the source site, so it is inverted to white; the focus ring becomes white; title and link hovers underline | Both layouts × 3 themes at 1440 and 375: text 12.6:1 on charcoal and on the white tiles, 11.8:1 on light grey; the icon visible on charcoal |
 
 ## Later goals
 

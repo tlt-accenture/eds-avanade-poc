@@ -204,7 +204,63 @@
   }
 }
 
+/* color themes (light is the default: light grey tiles, as before). Dark paints each tile; light
+   grey puts the block on a grey panel and turns the tiles white; with List both use the panel */
+.cards-news:is(.dark, .light-grey) {
+  --cards-news-rule: light-dark(#ccc, #5c5c5c);
+
+  color-scheme: var(--block-scheme);
+}
+
+.cards-news.dark:not(.list) {
+  --cards-news-bg: var(--block-surface);
+}
+
+.cards-news.light-grey:not(.list) {
+  --cards-news-bg: var(--color-background);
+}
+
+.cards-news.light-grey,
+.cards-news.dark.list {
+  box-sizing: border-box;
+  max-width: min(var(--grid-container-width), 1128px);
+  padding: var(--spacing-l);
+  border-radius: 30px;
+  background: var(--block-surface);
+}
+
+/* on charcoal: the dark tag icon (an image) turns white, the magenta focus ring becomes white,
+   and hovers underline instead of turning into gradient text */
+.cards-news.dark {
+  .cards-news-tag img {
+    filter: invert(1);
+  }
+
+  .cards-news-cta a:focus-visible,
+  .cards-news-card:has(.cards-news-cta a:focus-visible) {
+    outline-color: var(--color-text);
+  }
+
+  .cards-news-card:hover {
+    h3,
+    .cards-news-cta a {
+      background-image: none;
+      -webkit-text-fill-color: currentcolor;
+      text-decoration: underline;
+    }
+
+    .cards-news-cta a::after {
+      background-image: none;
+    }
+  }
+}
+
 @media (width >= 900px) {
+  .cards-news.light-grey,
+  .cards-news.dark.list {
+    padding: 40px;
+  }
+
   .cards-news ul {
     justify-content: center;
     margin-inline: 0;
