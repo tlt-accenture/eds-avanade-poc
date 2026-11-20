@@ -22,7 +22,18 @@
     ],
     "authoring": "One row per slide, one cell: quotation paragraph(s), then the attribution as the last paragraph."
   },
-  "options": [],
+  "options": [
+    {
+      "class": "dark",
+      "label": "Dark",
+      "group": "theme"
+    },
+    {
+      "class": "light-grey",
+      "label": "Light grey",
+      "group": "theme"
+    }
+  ],
   "memberVariantIds": [],
   "usage": {
     "description": "Text-only quote slides with attribution; prev/next and dots only when there is more than one slide; no autoplay.",

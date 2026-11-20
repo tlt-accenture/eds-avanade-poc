@@ -8,7 +8,9 @@
   --quote-carousel-rule-width: 88px;
   --quote-carousel-control-size: 28px;
   --quote-carousel-dot-width: 40px;
-  --quote-carousel-dot-color: #ccc;
+
+  /* the other quotes' dots are buttons: at least 3:1 on white, light grey and charcoal */
+  --quote-carousel-dot-color: light-dark(#8c8c8c, #ccc);
 
   max-width: min(var(--grid-container-width), var(--quote-carousel-max-width));
   margin-inline: auto;
@@ -147,6 +149,22 @@
   }
 }
 
+/* color themes (light is the default): a rounded panel of the theme's surface behind the quotes
+   and their controls; text, the author rule and the arrows follow the theme's color scheme. The
+   quotation mark keeps the brand gradient (it is decorative and hidden from screen readers) */
+.quote-carousel:is(.dark, .light-grey) {
+  box-sizing: border-box;
+  padding: var(--spacing-l);
+  border-radius: 30px;
+  background: var(--block-surface);
+  color-scheme: var(--block-scheme);
+}
+
+/* on charcoal the magenta focus ring is 2.3:1, so dark uses white */
+.quote-carousel.dark button:focus-visible {
+  outline-color: var(--color-text);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .quote-carousel .quote-carousel-track {
     scroll-behavior: smooth;
@@ -175,5 +193,9 @@
         margin-bottom: 0;
       }
     }
+  }
+
+  .quote-carousel:is(.dark, .light-grey) {
+    padding: 40px;
   }
 }
